@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syllabus & Materials - ICSI CS Executive</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --border: #334155;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: white;
+    }
+
+    .icsi-badge {
+      background: #1e40af;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+    }
+
+    .nav-btn {
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .timer-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    main { padding: 30px 20px; max-width: 1100px; margin: 0 auto; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .breadcrumb {
+      margin-bottom: 20px;
+      color: var(--subtext);
+    }
+
+    .breadcrumb span { cursor: pointer; color: var(--primary); font-weight: bold; }
+
+    iframe {
+      width: 100%;
+      height: 75vh;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo-container" title="Home">
+      <span class="icsi-badge">ICSI</span>
+      <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
+    </a>
+
+    <a href="syllabus.html" class="nav-btn">Syllabus</a>
+
+    <div id="timer" class="timer-text">Loading Exam Countdown...</div>
+  </header>
+
+  <main>
+    <div class="breadcrumb" id="breadcrumb">
+      <span onclick="showSubjects()">Syllabus</span>
+    </div>
+
+    <!-- Step 1: Subjects List -->
+    <div id="view-subjects" class="grid">
+      <div class="card" onclick="openSubjectFolder('Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
+        <h3>Company Law & Practice</h3>
+        <p style="color:var(--subtext)">Group 1 - Paper 2</p>
+      </div>
+
+      <div class="card" onclick="openSubjectFolder('Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf', false)">
+        <h3>Jurisprudence (JIGL)</h3>
+        <p style="color:var(--subtext)">Group 1 - Paper 1</p>
+      </div>
+
+      <div class="card" onclick="openSubjectFolder('Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf', false)">
+        <h3>Setting Up of Business (SBILL)</h3>
+        <p style="color:var(--subtext)">Group 1 - Paper 3</p>
+      </div>
+
+      <div class="card" onclick="openSubjectFolder('Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf', false)">
+        <h3>Tax Laws & Practice</h3>
+        <p style="color:var(--subtext)">Group 2 - Paper 7</p>
+      </div>
+    </div>
+
+    <!-- Step 2: Resources inside selected Subject -->
+    <div id="view-folder" class="grid hidden">
+      <div class="card" onclick="openStudyMaterial()">
+        <h3>📖 Study Material</h3>
+        <p style="color:var(--subtext)">Official ICSI PDF Textbook</p>
+      </div>
+      <div class="card">
+        <h3>❓ Previous Question Paper</h3>
+        <p style="color:var(--subtext)">Past Exam Papers</p>
+      </div>
+      <div class="card">
+        <h3>📝 Revision Notes</h3>
+        <p style="color:var(--subtext)">Summaries & Highlights</p>
+      </div>
+      <div class="card hidden" id="card-company-laws">
+        <h3>⚖️ Companies Act Laws</h3>
+        <p style="color:var(--subtext)">Sections & Database</p>
+      </div>
+    </div>
+
+    <!-- Step 3: PDF Viewer -->
+    <div id="view-pdf" class="hidden">
+      <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+        <h3 id="pdf-title" style="margin:0">Study Material</h3>
+        <button class="nav-btn" onclick="openExternalPdf()">Open PDF ↗</button>
+      </div>
+      <iframe id="pdf-frame" src=""></iframe>
+    </div>
+  </main>
+
+  <script>
+    const examDate = new Date("December 21, 2026 09:00:00").getTime();
+    let activePdfUrl = "";
+    let activeSubjectName = "";
+    let isCompanyLawActive = false;
+
+    function startExamCountdown() {
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = examDate - now;
+        if (distance < 0) {
+          document.getElementById("timer").innerHTML = "Dec 2026 Exam Started";
+          return;
+        }
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
+    }
+
+    function openSubjectFolder(name, pdfUrl, includesLaws) {
+      activePdfUrl = pdfUrl;
+      activeSubjectName = name;
+      isCompanyLawActive = includesLaws;
+
+      document.getElementById('view-subjects').classList.add('hidden');
+      document.getElementById('view-folder').classList.remove('hidden');
+      document.getElementById('view-pdf').classList.add('hidden');
+
+      if (includesLaws) {
+        document.getElementById('card-company-laws').classList.remove('hidden');
+      } else {
+        document.getElementById('card-company-laws').classList.add('hidden');
+      }
+
+      document.getElementById('breadcrumb').innerHTML = `
+        <span onclick="showSubjects()">Syllabus</span> &gt; <span>${name}</span>
+      `;
+    }
+
+    function showSubjects() {
+      document.getElementById('view-subjects').classList.remove('hidden');
+      document.getElementById('view-folder').classList.add('hidden');
+      document.getElementById('view-pdf').classList.add('hidden');
+      document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus</span>`;
+    }
+
+    function openStudyMaterial() {
+      document.getElementById('view-folder').classList.add('hidden');
+      document.getElementById('view-pdf').classList.remove('hidden');
+      document.getElementById('pdf-title').innerText = `${activeSubjectName} - Study Material`;
+      document.getElementById('pdf-frame').src = activePdfUrl;
+
+      document.getElementById('breadcrumb').innerHTML = `
+        <span onclick="showSubjects()">Syllabus</span> &gt; 
+        <span onclick="openSubjectFolder('${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
+        <span>Study Material</span>
+      `;
+    }
+
+    function openExternalPdf() {
+      if (activePdfUrl) window.open(activePdfUrl, '_blank');
+    }
+
+    startExamCountdown();
+  </script>
+</body>
+</html>
