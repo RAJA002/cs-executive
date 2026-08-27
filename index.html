@@ -22,6 +22,56 @@
       color: var(--text);
     }
 
+    /* Lock Screen Modal */
+    #lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .pin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .pin-input {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #090d16;
+      color: #fff;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    .pin-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .pin-btn:hover { opacity: 0.9; }
+
+    /* Top Bar Header */
     header {
       background: var(--card-bg);
       padding: 14px 24px;
@@ -31,6 +81,7 @@
       align-items: center;
     }
 
+    /* Top Left: ICSI Logo Home Link */
     .logo-container {
       display: flex;
       align-items: center;
@@ -49,6 +100,7 @@
       letter-spacing: 1px;
     }
 
+    /* Middle: Syllabus Link */
     .nav-btn {
       background: var(--primary);
       color: white;
@@ -61,6 +113,7 @@
 
     .nav-btn:hover { opacity: 0.9; }
 
+    /* Top Right: Countdown */
     .timer-text {
       font-size: 1.15rem;
       font-weight: 700;
@@ -80,33 +133,69 @@
       padding: 40px;
       border-radius: 12px;
     }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <header>
-    <!-- Top Left: ICSI Logo Home Link -->
-    <a href="index.html" class="logo-container" title="Home">
-      <span class="icsi-badge">ICSI</span>
-      <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
-    </a>
-
-    <!-- Middle: Syllabus Link -->
-    <a href="syllabus.html" class="nav-btn">Syllabus</a>
-
-    <!-- Top Right: Countdown -->
-    <div id="timer" class="timer-text">Loading Exam Countdown...</div>
-  </header>
-
-  <main>
-    <div class="welcome-card">
-      <h2>ICSI CS Executive Study Portal</h2>
-      <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the navigation header above to access all Group 1 & Group 2 subject folders, official study materials, and past exam papers.</p>
+  <!-- PIN Lock Screen Overlay -->
+  <div id="lock-screen">
+    <div class="pin-card">
+      <h3 style="margin-top:0">Portal Access Required</h3>
+      <p style="color:var(--subtext); font-size:0.9rem;">Enter security PIN to access study materials</p>
+      <input type="password" id="pin-input" class="pin-input" placeholder="Enter PIN" autofocus />
+      <br>
+      <button onclick="unlockPortal()" class="pin-btn">Unlock</button>
+      <p id="error-msg" style="color:#ef4444; font-size:0.85rem; margin-top:10px;" class="hidden">Incorrect PIN. Try again.</p>
     </div>
-  </main>
+  </div>
+
+  <!-- Protected Portal Body -->
+  <div id="portal-content" class="hidden">
+    <header>
+      <!-- Top Left: ICSI Logo Home Link -->
+      <a href="index.html" class="logo-container" title="Home">
+        <span class="icsi-badge">ICSI</span>
+        <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
+      </a>
+
+      <!-- Middle: Syllabus Link -->
+      <a href="syllabus.html" class="nav-btn">Syllabus</a>
+
+      <!-- Top Right: Countdown -->
+      <div id="timer" class="timer-text">Loading Exam Countdown...</div>
+    </header>
+
+    <main>
+      <div class="welcome-card">
+        <h2>ICSI CS Executive Study Portal</h2>
+        <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the navigation header above to access all Group 1 & Group 2 subject folders, official study materials, and past exam papers.</p>
+      </div>
+    </main>
+  </div>
 
   <script>
+    const SECRET_PIN = "2026";
     const examDate = new Date("December 21, 2026 09:00:00").getTime();
+
+    function unlockPortal() {
+      const enteredPin = document.getElementById("pin-input").value;
+      if (enteredPin === SECRET_PIN) {
+        document.getElementById("lock-screen").classList.add("hidden");
+        document.getElementById("portal-content").classList.remove("hidden");
+        startExamCountdown();
+      } else {
+        document.getElementById("error-msg").classList.remove("hidden");
+      }
+    }
+
+    // Allow pressing 'Enter' key to unlock
+    document.getElementById("pin-input").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        unlockPortal();
+      }
+    });
 
     function startExamCountdown() {
       setInterval(() => {
@@ -123,7 +212,6 @@
         document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m ${seconds}s`;
       }, 1000);
     }
-    startExamCountdown();
   </script>
 </body>
 </html>
