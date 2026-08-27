@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICSI CS Executive - Dashboard</title>
+  <title>ICSI CS Executive - Portal</title>
   <link rel="icon" href="data:,">
   <style>
     :root {
@@ -22,7 +22,6 @@
       color: var(--text);
     }
 
-    /* Top Bar Header */
     header {
       background: var(--card-bg);
       padding: 14px 24px;
@@ -32,7 +31,6 @@
       align-items: center;
     }
 
-    /* Top Left Logo Home Link */
     .logo-container {
       display: flex;
       align-items: center;
@@ -51,7 +49,6 @@
       letter-spacing: 1px;
     }
 
-    /* Top Center Syllabus Nav Button */
     .nav-btn {
       background: var(--primary);
       color: white;
@@ -64,7 +61,6 @@
 
     .nav-btn:hover { opacity: 0.9; }
 
-    /* Top Right Countdown Timer */
     .timer-text {
       font-size: 1.15rem;
       font-weight: 700;
@@ -72,7 +68,7 @@
     }
 
     main {
-      padding: 40px 20px;
+      padding: 60px 20px;
       text-align: center;
       max-width: 800px;
       margin: 0 auto;
@@ -95,7 +91,7 @@
       <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
     </a>
 
-    <!-- Middle: Syllabus Link to syllabus.html -->
+    <!-- Middle: Syllabus Link -->
     <a href="syllabus.html" class="nav-btn">Syllabus</a>
 
     <!-- Top Right: Countdown -->
@@ -104,8 +100,8 @@
 
   <main>
     <div class="welcome-card">
-      <h2>Welcome to CS Executive Prep Portal</h2>
-      <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the top navigation bar to access study materials, past question papers, and revision notes.</p>
+      <h2>ICSI CS Executive Academic Portal</h2>
+      <p style="color:var(--subtext)">Click on <strong>Syllabus</strong> in the navigation bar to access Group 1 & Group 2 subjects and study materials.</p>
     </div>
   </main>
 
@@ -123,11 +119,71 @@
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }, 1000);
+        const seconds = Math.floor((distance %To make your main landing page clean and ensure the syllabus only displays when requested, you can update `index.html` to serve strictly as a main landing dashboard. 
+
+Here are the changes for both files:
+
+### Key Changes
+* **`index.html` (Landing Page):** Removed the default syllabus layout and the "Sections DB" button from the top header bar. It now shows a clean welcome screen with the countdown timer and top navigation.
+* **`syllabus.html` (Syllabus Page):** Displays all papers. Clicking into **Company Law & Practice** opens its dedicated sub-folder containing **Study Material**, **Previous Question Papers**, **Revision Notes**, and **Companies Act Sections & Laws**.
+
+---
+
+### 1. Updated `index.html`
+
+Replace your [`index.html`](https://raja002.github.io/cs-executive/) file with this clean front page:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICSI CS Executive - Dashboard</title>
+  <link rel="icon" href="data:,">
+  <style>
+    :root {
+      --icsi-blue: #0b3c5d;
+      --icsi-gold: #d9b310;
+      --icsi-accent: #328cc1;
+      --bg: #f4f6f9;
+      --card-bg: #ffffff;
+      --text: #1d2731;
+      --subtext: #5c6b73;
+      --border: #e2e8f0;
     }
-    startExamCountdown();
-  </script>
-</body>
-</html>
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    .top-bar {
+      background: #072a40;
+      color: #fff;
+      padding: 6px 24px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header {
+      background: var(--icsi-blue);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid var(--icsi-gold);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
