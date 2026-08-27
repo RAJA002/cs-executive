@@ -81,8 +81,8 @@
       background: #1e3a8a;
       color: #fff;
       font-weight: bold;
-      font-size: 0.9rem;
-      padding: 6px 12px;
+      font-size: 0.95rem;
+      padding: 6px 14px;
       border-radius: 6px;
       border: 1px solid var(--accent);
     }
@@ -111,7 +111,7 @@
     }
 
     /* Layout Wrapper */
-    .wrapper { width: 90%; max-width: 800px; margin: 20px auto; display: none; }
+    .wrapper { width: 90%; max-width: 850px; margin: 20px auto; display: none; }
 
     /* Exam Countdown Timer Box */
     .countdown-card {
@@ -149,6 +149,41 @@
       padding: 20px;
       margin-bottom: 15px;
     }
+    
+    /* Expandable Accordion Sections */
+    .sec-accordion {
+      background: #1f2937;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .sec-header {
+      padding: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--accent);
+    }
+    .sec-header:hover { background: #374151; }
+    .sec-content {
+      display: none;
+      padding: 15px;
+      background: #111827;
+      border-top: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .subsec {
+      margin-left: 15px;
+      padding-left: 10px;
+      border-left: 2px solid var(--accent);
+      margin-top: 10px;
+      color: var(--subtext);
+    }
+
     .btn-action {
       background: var(--accent);
       color: #000;
@@ -172,20 +207,20 @@
     </div>
   </div>
 
-  <!-- TOP HEADER WITH ICSI HOME BUTTON -->
+  <!-- TOP HEADER WITH ICSI LOGO AS HOME -->
   <header>
-    <div class="portal-title">CS Executive Portal</div>
-    <!-- ICSI Logo acts as HOME -->
-    <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home">
+    <div class="portal-title">CS Executive Revision Portal</div>
+    <!-- ICSI Badge Acts as the ONLY Home Button -->
+    <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home Dashboard">
       <div class="icsi-badge">ICSI 🏛️</div>
-      <span style="font-size: 0.85rem; font-weight: bold;">HOME</span>
     </div>
   </header>
 
   <!-- TOP NAVIGATION COLUMNS -->
   <div class="nav-bar">
     <button class="nav-btn active" id="btn-home" onclick="switchTab('home')">Dashboard</button>
-    <button class="nav-btn" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus</button>
+    <button class="nav-btn" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus &amp; Sections</button>
+    <button class="nav-btn" id="btn-quiz" onclick="switchTab('quiz')">Practice Quiz</button>
     <button class="nav-btn" id="btn-pyq" onclick="switchTab('pyq')">Past Papers (PYQ)</button>
   </div>
 
@@ -203,34 +238,77 @@
       </div>
     </div>
 
-    <!-- HOME / REVISION VIEW -->
+    <!-- HOME DASHBOARD VIEW -->
     <div id="view-home" class="view-section active">
       <div class="card">
-        <h3>Section Drill & Revision</h3>
-        <p style="color: var(--subtext);">Interactive practice questions for CS Executive Group 1 & Group 2 papers.</p>
-        <p><strong>Company Law Question:</strong> Under Section 135 of the Companies Act 2013, what percentage of net profit is spent on CSR?</p>
-        <button class="btn-action" onclick="alert('Correct Answer: 2%')">Show Answer</button>
+        <h3>Welcome to CS Executive Hub</h3>
+        <p style="color: var(--subtext);">Select any section from the top navigation bar to access the full legal syllabus, expandable Companies Act sections, interactive section drills, or previous year papers.</p>
       </div>
     </div>
 
-    <!-- SYLLABUS VIEW -->
+    <!-- SYLLABUS & EXPANDABLE COMPANY LAW SECTIONS VIEW -->
     <div id="view-syllabus" class="view-section">
       <div class="card">
-        <h3 style="color:var(--accent);">Group 1 Papers</h3>
-        <ul>
-          <li>Paper 1: Jurisprudence, Interpretation & General Laws (JIGL)</li>
-          <li>Paper 2: Company Law & Practice</li>
-          <li>Paper 3: Setting Up of Business, Industrial & Labour Laws</li>
-          <li>Paper 4: Corporate Accounting & Financial Management</li>
-        </ul>
+        <h3 style="color:var(--accent);">Company Law — Sections &amp; Sub-sections Index</h3>
+        
+        <!-- SECTION 135 -->
+        <div class="sec-accordion">
+          <div class="sec-header" onclick="toggleSec(this)">
+            <span>Section 135 — Corporate Social Responsibility (CSR)</span>
+            <span>+</span>
+          </div>
+          <div class="sec-content">
+            <p>Every company having net worth of ₹500 crore or more, or turnover of ₹1000 crore or more, or a net profit of ₹5 crore or more during immediately preceding financial year shall constitute a CSR Committee.</p>
+            <div class="subsec">
+              <strong>Subsection (1):</strong> Composition of CSR Committee (Minimum 3 directors, at least 1 independent director).
+            </div>
+            <div class="subsec">
+              <strong>Subsection (5):</strong> Board shall ensure that company spends at least 2% of average net profits made during 3 preceding financial years.
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 149 -->
+        <div class="sec-accordion">
+          <div class="sec-header" onclick="toggleSec(this)">
+            <span>Section 149 — Board of Directors &amp; Independent Directors</span>
+            <span>+</span>
+          </div>
+          <div class="sec-content">
+            <p>Every company shall have a Board of Directors consisting of individuals as directors.</p>
+            <div class="subsec">
+              <strong>Subsection (1):</strong> Minimum directors: 3 for Public, 2 for Private, 1 for OPC. Maximum limit is 15 directors.
+            </div>
+            <div class="subsec">
+              <strong>Subsection (4):</strong> Every listed public company shall have at least 1/3rd of total number of directors as Independent Directors.
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 173 -->
+        <div class="sec-accordion">
+          <div class="sec-header" onclick="toggleSec(this)">
+            <span>Section 173 — Meetings of Board</span>
+            <span>+</span>
+          </div>
+          <div class="sec-content">
+            <p>Provisions governing the frequency and conduct of Board Meetings.</p>
+            <div class="subsec">
+              <strong>Subsection (1):</strong> First board meeting within 30 days of incorporation. Minimum 4 meetings per year with max gap of 120 days.
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+
+    <!-- PRACTICE QUIZ COLUMN -->
+    <div id="view-quiz" class="view-section">
       <div class="card">
-        <h3 style="color:var(--accent);">Group 2 Papers</h3>
-        <ul>
-          <li>Paper 5: Capital Market & Securities Laws (CMSL)</li>
-          <li>Paper 6: Economic, Commercial & Intellectual Property Laws</li>
-          <li>Paper 7: Tax Laws & Practice</li>
-        </ul>
+        <h3>Section Practice Quiz</h3>
+        <p style="color: var(--subtext);">Test section recall and compliance rules under exam conditions.</p>
+        <p><strong>Company Law Question:</strong> Under Section 135 of the Companies Act 2013, what percentage of average net profit must be spent on CSR?</p>
+        <button class="btn-action" onclick="alert('Correct Answer: 2%')">Show Answer</button>
       </div>
     </div>
 
@@ -238,10 +316,10 @@
     <div id="view-pyq" class="view-section">
       <div class="card">
         <h3>Previous Year Question Papers</h3>
-        <p style="color: var(--subtext);">Download & practice official ICSI past year exam papers.</p>
+        <p style="color: var(--subtext);">Download &amp; practice official ICSI past year exam papers.</p>
         <ul>
           <li>📄 Company Law — June 2025 Paper</li>
-          <li>📄 Tax Laws & Practice — December 2024 Paper</li>
+          <li>📄 Tax Laws &amp; Practice — December 2024 Paper</li>
           <li>📄 JIGL — June 2024 Paper</li>
         </ul>
       </div>
@@ -250,9 +328,7 @@
   </div>
 
 <script>
-  const SECRET_PIN = "1432";
-
-  // Target Exam Date (Set to ICSI Executive Exam Date e.g., Dec 21, 2026)
+  const SECRET_PIN = "2026";
   const examDate = new Date("December 21, 2026 09:00:00").getTime();
 
   function unlockPortal() {
@@ -285,12 +361,16 @@
     document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
     document.getElementById('view-' + tabName).classList.add('active');
-    
-    if(tabName !== 'home') {
+    if (document.getElementById('btn-' + tabName)) {
       document.getElementById('btn-' + tabName).classList.add('active');
-    } else {
-      document.getElementById('btn-home').classList.add('active');
     }
+  }
+
+  function toggleSec(headerEl) {
+    const content = headerEl.nextElementSibling;
+    const isVisible = content.style.display === 'block';
+    content.style.display = isVisible ? 'none' : 'block';
+    headerEl.querySelector('span:last-child').innerText = isVisible ? '+' : '−';
   }
 </script>
 </body>
