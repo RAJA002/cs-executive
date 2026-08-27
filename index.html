@@ -24,7 +24,7 @@
       padding: 0;
     }
     
-    /* Lock Screen Overlay */
+    /* Lock Screen */
     #lock-screen {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -55,7 +55,7 @@
       border-radius: 6px;
     }
 
-    /* Top Header Bar */
+    /* Top Header */
     header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--border);
@@ -64,17 +64,12 @@
       justify-content: space-between;
       align-items: center;
     }
-    .portal-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--accent);
-    }
+    .portal-title { font-size: 1.2rem; font-weight: bold; color: var(--accent); }
     .icsi-logo {
       display: flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
-      text-decoration: none;
       color: var(--text);
     }
     .icsi-badge {
@@ -87,7 +82,7 @@
       border: 1px solid var(--accent);
     }
 
-    /* Navigation Columns */
+    /* Nav Bar */
     .nav-bar {
       display: flex;
       background: #1f2937;
@@ -138,10 +133,9 @@
     .time-val { font-size: 1.6rem; font-weight: bold; color: var(--warning); }
     .time-lbl { font-size: 0.7rem; color: var(--subtext); }
 
-    /* Content Views */
+    /* Views & Cards */
     .view-section { display: none; }
     .view-section.active { display: block; }
-
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -150,7 +144,22 @@
       margin-bottom: 15px;
     }
     
-    /* Expandable Accordion Sections */
+    /* Subject List UI */
+    .subject-card {
+      background: #1f2937;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .subject-card:hover { border-color: var(--accent); background: #374151; }
+    .badge-grp { background: #374151; color: var(--accent); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
+    
+    /* Accordion Sections */
     .sec-accordion {
       background: #1f2937;
       border: 1px solid var(--border);
@@ -210,7 +219,6 @@
   <!-- TOP HEADER WITH ICSI LOGO AS HOME -->
   <header>
     <div class="portal-title">CS Executive Revision Portal</div>
-    <!-- ICSI Badge Acts as the ONLY Home Button -->
     <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home Dashboard">
       <div class="icsi-badge">ICSI 🏛️</div>
     </div>
@@ -242,64 +250,190 @@
     <div id="view-home" class="view-section active">
       <div class="card">
         <h3>Welcome to CS Executive Hub</h3>
-        <p style="color: var(--subtext);">Select any section from the top navigation bar to access the full legal syllabus, expandable Companies Act sections, interactive section drills, or previous year papers.</p>
+        <p style="color: var(--subtext);">Select any paper from Syllabus to view full portion details, Act provisions, and section breakdowns.</p>
       </div>
     </div>
 
-    <!-- SYLLABUS & EXPANDABLE COMPANY LAW SECTIONS VIEW -->
+    <!-- SYLLABUS VIEW: ALL SUBJECTS -->
     <div id="view-syllabus" class="view-section">
-      <div class="card">
-        <h3 style="color:var(--accent);">Company Law — Sections &amp; Sub-sections Index</h3>
-        
-        <!-- SECTION 135 -->
-        <div class="sec-accordion">
-          <div class="sec-header" onclick="toggleSec(this)">
-            <span>Section 135 — Corporate Social Responsibility (CSR)</span>
-            <span>+</span>
+      <!-- SUBJECT LIST MAIN SCREEN -->
+      <div id="subject-list-container">
+        <div class="card">
+          <h3 style="color:var(--accent); margin-top:0;">Group 1 Papers</h3>
+          <div class="subject-card" onclick="openSubjectDetail('company-law')">
+            <div>
+              <strong>Paper 2: Company Law &amp; Practice</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">Full Portion, Act Rules &amp; All Sections</div>
+            </div>
+            <span class="badge-grp">GROUP 1</span>
           </div>
-          <div class="sec-content">
-            <p>Every company having net worth of ₹500 crore or more, or turnover of ₹1000 crore or more, or a net profit of ₹5 crore or more during immediately preceding financial year shall constitute a CSR Committee.</p>
-            <div class="subsec">
-              <strong>Subsection (1):</strong> Composition of CSR Committee (Minimum 3 directors, at least 1 independent director).
+          <div class="subject-card" onclick="alert('JIGL module structure loading...')">
+            <div>
+              <strong>Paper 1: Jurisprudence, Interpretation &amp; General Laws (JIGL)</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">Constitution, CPC, CrPC, Limitation Act</div>
             </div>
-            <div class="subsec">
-              <strong>Subsection (5):</strong> Board shall ensure that company spends at least 2% of average net profits made during 3 preceding financial years.
+            <span class="badge-grp">GROUP 1</span>
+          </div>
+          <div class="subject-card" onclick="alert('SBILL module loading...')">
+            <div>
+              <strong>Paper 3: Setting Up of Business, Industrial &amp; Labour Laws</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">Business Licenses, Registrations &amp; Labour Codes</div>
             </div>
+            <span class="badge-grp">GROUP 1</span>
+          </div>
+          <div class="subject-card" onclick="alert('CAFM module loading...')">
+            <div>
+              <strong>Paper 4: Corporate Accounting &amp; Financial Management</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">Financial Statements, Accounting Standards &amp; FM</div>
+            </div>
+            <span class="badge-grp">GROUP 1</span>
           </div>
         </div>
 
-        <!-- SECTION 149 -->
-        <div class="sec-accordion">
-          <div class="sec-header" onclick="toggleSec(this)">
-            <span>Section 149 — Board of Directors &amp; Independent Directors</span>
-            <span>+</span>
+        <div class="card">
+          <h3 style="color:var(--accent); margin-top:0;">Group 2 Papers</h3>
+          <div class="subject-card" onclick="alert('CMSL module loading...')">
+            <div>
+              <strong>Paper 5: Capital Market &amp; Securities Laws (CMSL)</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">SEBI Regulations, ICR, Takeover Code</div>
+            </div>
+            <span class="badge-grp">GROUP 2</span>
           </div>
-          <div class="sec-content">
-            <p>Every company shall have a Board of Directors consisting of individuals as directors.</p>
-            <div class="subsec">
-              <strong>Subsection (1):</strong> Minimum directors: 3 for Public, 2 for Private, 1 for OPC. Maximum limit is 15 directors.
+          <div class="subject-card" onclick="alert('ECIPL module loading...')">
+            <div>
+              <strong>Paper 6: Economic, Commercial &amp; Intellectual Property Laws</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">FEMA, Competition Act, IP Rights</div>
             </div>
-            <div class="subsec">
-              <strong>Subsection (4):</strong> Every listed public company shall have at least 1/3rd of total number of directors as Independent Directors.
+            <span class="badge-grp">GROUP 2</span>
+          </div>
+          <div class="subject-card" onclick="alert('Tax Laws module loading...')">
+            <div>
+              <strong>Paper 7: Tax Laws &amp; Practice</strong>
+              <div style="font-size:0.8rem; color:var(--subtext);">Direct Tax (Income Tax) &amp; Indirect Tax (GST)</div>
             </div>
+            <span class="badge-grp">GROUP 2</span>
           </div>
         </div>
-
-        <!-- SECTION 173 -->
-        <div class="sec-accordion">
-          <div class="sec-header" onclick="toggleSec(this)">
-            <span>Section 173 — Meetings of Board</span>
-            <span>+</span>
-          </div>
-          <div class="sec-content">
-            <p>Provisions governing the frequency and conduct of Board Meetings.</p>
-            <div class="subsec">
-              <strong>Subsection (1):</strong> First board meeting within 30 days of incorporation. Minimum 4 meetings per year with max gap of 120 days.
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <!-- COMPANY LAW DETAILED BREAKDOWN (FULL PORTION + ALL SECTIONS) -->
+      <div id="company-law-detail" style="display:none;">
+        <button class="btn-action" style="margin-bottom:15px;" onclick="closeSubjectDetail()">← Back to All Subjects</button>
+
+        <div class="card">
+          <h2 style="color:var(--accent); margin-top:0;">Company Law &amp; Practice (100 Marks)</h2>
+          <p><strong>Part I:</strong> Company Law Principles &amp; Concepts (60 Marks)</p>
+          <p><strong>Part II:</strong> Company Administration &amp; Meetings (40 Marks)</p>
+        </div>
+
+        <!-- COMPREHENSIVE COMPANY LAW SECTIONS INDEX -->
+        <div class="card">
+          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — Comprehensive Section Index</h3>
+          
+          <!-- SECTION 1 & 2 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter I: Section 1 &amp; 2 — Short Title, Extent &amp; Definitions</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 1:</strong> Short title, commencement and application of Companies Act 2013.</div>
+              <div class="subsec"><strong>Section 2(20):</strong> Definition of 'Company' incorporated under this Act or previous law.</div>
+              <div class="subsec"><strong>Section 2(68):</strong> Definition of 'Private Company' (restricts transferability, max 200 members).</div>
+              <div class="subsec"><strong>Section 2(71):</strong> Definition of 'Public Company'.</div>
+              <div class="subsec"><strong>Section 2(62):</strong> Definition of 'One Person Company' (OPC).</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 3 TO 22 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter II: Sections 3 to 22 — Incorporation &amp; Prospectus</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 3:</strong> Formation of company for lawful purposes.</div>
+              <div class="subsec"><strong>Section 4:</strong> Memorandum of Association (MOA) clauses (Name, Registered Office, Objects, Liability, Capital).</div>
+              <div class="subsec"><strong>Section 5:</strong> Articles of Association (AOA) regulations for management.</div>
+              <div class="subsec"><strong>Section 12:</strong> Registered Office of Company (Verification within 30 days of incorporation).</div>
+              <div class="subsec"><strong>Section 13:</strong> Alteration of Memorandum of Association.</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 42 TO 72 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter IV: Sections 43 to 72 — Share Capital &amp; Debentures</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 43:</strong> Kinds of Share Capital (Equity shares with voting/DVR rights, Preference shares).</div>
+              <div class="subsec"><strong>Section 53:</strong> Prohibition on issue of shares at a discount.</div>
+              <div class="subsec"><strong>Section 54:</strong> Issue of Sweat Equity Shares.</div>
+              <div class="subsec"><strong>Section 62:</strong> Further issue of share capital (Rights Issue, ESOP, Private Placement).</div>
+              <div class="subsec"><strong>Section 68:</strong> Power of company to buy-back its own securities.</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 96 TO 122 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter VII: Sections 96 to 122 — Management &amp; General Meetings</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 96:</strong> Annual General Meeting (AGM) mandatory holding within 6 months from financial year end.</div>
+              <div class="subsec"><strong>Section 100:</strong> Calling of Extra-Ordinary General Meeting (EGM).</div>
+              <div class="subsec"><strong>Section 101:</strong> Notice of meeting (Clear 21 days notice required).</div>
+              <div class="subsec"><strong>Section 103:</strong> Quorum for meetings (5 members for private; up to 30 for large public companies).</div>
+              <div class="subsec"><strong>Section 108:</strong> Voting through electronic means (e-voting).</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 135 & CSR -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter IX: Section 135 — Corporate Social Responsibility (CSR)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <p>Mandatory for companies with Net Worth ≥ ₹500 Cr, Turnover ≥ ₹1000 Cr, or Net Profit ≥ ₹5 Cr.</p>
+              <div class="subsec"><strong>Section 135(1):</strong> Composition of CSR Committee (at least 1 independent director).</div>
+              <div class="subsec"><strong>Section 135(5):</strong> Mandatory spending of 2% of average net profits of preceding 3 financial years.</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 149 TO 172 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter XI: Sections 149 to 172 — Appointment &amp; Qualifications of Directors</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 149(1):</strong> Minimum 3 directors (Public), 2 (Private), 1 (OPC). Maximum 15 directors limit.</div>
+              <div class="subsec"><strong>Section 149(4):</strong> Minimum 1/3rd Independent Directors for listed public companies.</div>
+              <div class="subsec"><strong>Section 152:</strong> Appointment of Directors and DIN mandatory requirement.</div>
+              <div class="subsec"><strong>Section 164:</strong> Disqualifications for appointment of director.</div>
+            </div>
+          </div>
+
+          <!-- SECTIONS 173 TO 195 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter XII: Sections 173 to 195 — Meetings of Board &amp; Its Powers</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 173(1):</strong> First Board Meeting within 30 days of incorporation; minimum 4 board meetings per year.</div>
+              <div class="subsec"><strong>Section 177:</strong> Audit Committee constitution.</div>
+              <div class="subsec"><strong>Section 178:</strong> Nomination and Remuneration Committee (NRC) and Stakeholders Relationship Committee.</div>
+              <div class="subsec"><strong>Section 186:</strong> Loans and investments by company limits.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <!-- PRACTICE QUIZ COLUMN -->
@@ -364,6 +498,18 @@
     if (document.getElementById('btn-' + tabName)) {
       document.getElementById('btn-' + tabName).classList.add('active');
     }
+  }
+
+  function openSubjectDetail(subjectId) {
+    if(subjectId === 'company-law') {
+      document.getElementById('subject-list-container').style.display = 'none';
+      document.getElementById('company-law-detail').style.display = 'block';
+    }
+  }
+
+  function closeSubjectDetail() {
+    document.getElementById('subject-list-container').style.display = 'block';
+    document.getElementById('company-law-detail').style.display = 'none';
   }
 
   function toggleSec(headerEl) {
