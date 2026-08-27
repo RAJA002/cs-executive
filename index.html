@@ -66,7 +66,7 @@
 
     button:hover { opacity: 0.9; }
 
-    /* New Clean Header Grid (3 Columns) */
+    /* Clean 3-Column Header Grid */
     header {
       background: var(--card-bg);
       padding: 12px 24px;
@@ -79,15 +79,19 @@
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       cursor: pointer;
       user-select: none;
     }
 
-    .icsi-logo {
-      height: 42px;
-      width: auto;
-      border-radius: 4px;
+    .icsi-badge {
+      background: #1e40af;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      letter-spacing: 1px;
     }
 
     .timer-box {
@@ -95,7 +99,7 @@
     }
 
     .timer-text {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #38bdf8;
       letter-spacing: 0.5px;
@@ -158,6 +162,7 @@
       height: 75vh;
       border: 1px solid var(--border);
       border-radius: 8px;
+      background: #fff;
     }
 
     .hidden { display: none !important; }
@@ -176,21 +181,21 @@
     </div>
   </div>
 
-  <!-- Dashboard -->
+  <!-- Main Portal -->
   <div id="app-wrapper" class="hidden">
     <header>
-      <!-- Left Column: ICSI Logo (Home Button) -->
-      <div class="logo-container" onclick="showSubjects()" title="Return to Home Dashboard">
-        <img src="https://www.icsi.edu/media/webmodules/icsi_logo.png" alt="ICSI Logo" class="icsi-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/8/8b/ICSI_Logo.png'">
+      <!-- Left: Logo & Home Link -->
+      <div class="logo-container" onclick="showSubjects()" title="Click to go Home">
+        <span class="icsi-badge">ICSI</span>
         <span style="font-weight: bold; font-size: 1.1rem; color: #fff;">CS Executive</span>
       </div>
 
-      <!-- Center Column: Prominent Timer -->
+      <!-- Center: Prominent Timer -->
       <div class="timer-box">
         <div id="timer" class="timer-text">Loading Exam Countdown...</div>
       </div>
 
-      <!-- Right Column: Navigation Tabs -->
+      <!-- Right: Navigation -->
       <div class="nav-tabs">
         <button class="tab-btn active" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus</button>
         <button class="tab-btn" id="btn-sections" onclick="switchTab('sections')">Sections DB</button>
@@ -204,7 +209,7 @@
           <span onclick="showSubjects()">Syllabus</span>
         </div>
 
-        <!-- Level 1: Subject Column -->
+        <!-- Level 1: Subject Cards -->
         <div id="view-subjects" class="grid">
           <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
             <h3>Company Law & Practice</h3>
@@ -246,9 +251,9 @@
 
         <!-- Level 3: PDF Reader View -->
         <div id="view-pdf-reader" class="hidden">
-          <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
             <h3 id="pdf-title" style="margin:0">Official Study Material</h3>
-            <button onclick="openExternalPdf()">Open Fullscreen ↗</button>
+            <button onclick="openExternalPdf()">Open PDF in New Window ↗</button>
           </div>
           <iframe id="pdf-frame" src=""></iframe>
         </div>
@@ -256,7 +261,7 @@
 
       <!-- Sections Database Tab -->
       <section id="tab-sections" class="hidden">
-        <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or legal keyword..." onkeyup="filterSections()" style="margin-bottom:20px;">
+        <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or keyword..." onkeyup="filterSections()" style="margin-bottom:20px;">
         <div id="all-sections-container" class="grid"></div>
       </section>
     </main>
@@ -296,7 +301,7 @@
         renderSections(loadedSections);
       } catch (e) {
         console.error("Error loading sections:", e);
-        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repo.</p>';
+        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repository.</p>';
       }
     }
 
