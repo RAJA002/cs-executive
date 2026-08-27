@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CS Executive Master Portal</title>
+  <title>ICSI CS Executive Portal</title>
   <style>
     :root {
       --bg: #090d16;
@@ -21,12 +21,8 @@
       background: var(--bg);
       color: var(--text);
       margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 0;
     }
-    .wrapper { width: 100%; max-width: 700px; display: none; }
     
     /* Lock Screen Overlay */
     #lock-screen {
@@ -34,7 +30,6 @@
       top: 0; left: 0; width: 100%; height: 100%;
       background: var(--bg);
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 999;
@@ -60,67 +55,100 @@
       border-radius: 6px;
     }
 
-    /* Portal UI */
-    h1 { color: var(--accent); margin-bottom: 5px; font-size: 1.6rem; }
-    .alarm-box {
-      border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0 25px 0;
+    /* Top Header Bar */
+    header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .portal-title {
+      font-size: 1.2rem;
       font-weight: bold;
+      color: var(--accent);
+    }
+    .icsi-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
-      border: 1px solid transparent;
-    }
-    .alarm-danger { background: rgba(239, 68, 68, 0.15); border-color: var(--danger); color: #fca5a5; }
-    .alarm-success { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: #6ee7b7; }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 25px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
     }
-    .stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      padding: 15px;
-      border-radius: 8px;
-      text-align: center;
+    .icsi-badge {
+      background: #1e3a8a;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
     }
-    .stat-val { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
-    .stat-lbl { font-size: 0.75rem; color: var(--subtext); text-transform: uppercase; margin-top: 4px; }
 
-    .exam-card {
+    /* Navigation Columns */
+    .nav-bar {
+      display: flex;
+      background: #1f2937;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-btn {
+      flex: 1;
+      padding: 14px;
+      text-align: center;
+      background: transparent;
+      border: none;
+      color: var(--subtext);
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: rgba(56, 189, 248, 0.05);
+    }
+
+    /* Layout Wrapper */
+    .wrapper { width: 90%; max-width: 800px; margin: 20px auto; display: none; }
+
+    /* Exam Countdown Timer Box */
+    .countdown-card {
+      background: linear-gradient(135deg, #1e1b4b, #111827);
+      border: 1px solid #4338ca;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .countdown-title { font-size: 0.85rem; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.05em; }
+    .countdown-clock {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .time-unit {
+      background: rgba(0,0,0,0.4);
+      padding: 10px 15px;
+      border-radius: 8px;
+      min-width: 50px;
+    }
+    .time-val { font-size: 1.6rem; font-weight: bold; color: var(--warning); }
+    .time-lbl { font-size: 0.7rem; color: var(--subtext); }
+
+    /* Content Views */
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 20px;
-    }
-    .timer-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 10px;
       margin-bottom: 15px;
     }
-    .timer { font-family: monospace; font-size: 1.2rem; color: var(--warning); font-weight: bold; }
-    
-    .question { font-size: 1.1rem; margin-bottom: 20px; line-height: 1.4; }
-    .options { display: flex; flex-direction: column; gap: 10px; }
-    .opt-btn {
-      background: #1f2937;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 12px;
-      border-radius: 6px;
-      text-align: left;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .opt-btn:hover { background: #374151; }
-    
     .btn-action {
       background: var(--accent);
       color: #000;
@@ -129,8 +157,6 @@
       padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 15px;
-      float: right;
     }
   </style>
 </head>
@@ -139,174 +165,131 @@
   <!-- AUTH LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-box">
-      <h2 style="margin-top:0; color:var(--accent);">Private Access</h2>
-      <p style="color:var(--subtext); font-size:0.9rem;">Enter the passcode to unlock the CS Executive Hub.</p>
+      <h2 style="margin-top:0; color:var(--accent);">Private CS Access</h2>
+      <p style="color:var(--subtext); font-size:0.9rem;">Enter Passcode to unlock</p>
       <input type="password" id="pin-entry" class="pin-input" placeholder="••••" maxlength="6">
-      <button class="btn-action" style="float:none; width:100%;" onclick="unlockPortal()">Unlock Portal</button>
+      <button class="btn-action" style="width:100%;" onclick="unlockPortal()">Unlock Portal</button>
     </div>
   </div>
 
-  <!-- MAIN APP CONTAINER -->
+  <!-- TOP HEADER WITH ICSI HOME BUTTON -->
+  <header>
+    <div class="portal-title">CS Executive Portal</div>
+    <!-- ICSI Logo acts as HOME -->
+    <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home">
+      <div class="icsi-badge">ICSI 🏛️</div>
+      <span style="font-size: 0.85rem; font-weight: bold;">HOME</span>
+    </div>
+  </header>
+
+  <!-- TOP NAVIGATION COLUMNS -->
+  <div class="nav-bar">
+    <button class="nav-btn active" id="btn-home" onclick="switchTab('home')">Dashboard</button>
+    <button class="nav-btn" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus</button>
+    <button class="nav-btn" id="btn-pyq" onclick="switchTab('pyq')">Past Papers (PYQ)</button>
+  </div>
+
+  <!-- MAIN CONTAINER -->
   <div class="wrapper" id="app-wrapper">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <h1>CS Executive Revision Hub</h1>
-    </div>
-
-    <!-- ALARM BANNER -->
-    <div id="alarm-banner" class="alarm-box alarm-success">
-      ⚠️ <span id="alarm-text">Complete section questions below to track passing status.</span>
-    </div>
-
-    <!-- DASHBOARD METRICS -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-val" id="stat-attempted">0</div>
-        <div class="stat-lbl">Attempted</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" id="stat-accuracy">0%</div>
-        <div class="stat-lbl">Accuracy</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-val" id="stat-status">ACTIVE</div>
-        <div class="stat-lbl">ICSI Target</div>
+    
+    <!-- EXAM COUNTDOWN TIMER -->
+    <div class="countdown-card">
+      <div class="countdown-title">Target Exam Date: December 2026 ICSI Session</div>
+      <div class="countdown-clock">
+        <div class="time-unit"><div class="time-val" id="timer-days">00</div><div class="time-lbl">DAYS</div></div>
+        <div class="time-unit"><div class="time-val" id="timer-hours">00</div><div class="time-lbl">HOURS</div></div>
+        <div class="time-unit"><div class="time-val" id="timer-mins">00</div><div class="time-lbl">MINS</div></div>
+        <div class="time-unit"><div class="time-val" id="timer-secs">00</div><div class="time-lbl">SECS</div></div>
       </div>
     </div>
 
-    <!-- EXAM INTERFACE -->
-    <div class="exam-card">
-      <div class="timer-bar">
-        <span style="font-size: 0.85rem; color: var(--subtext)" id="paper-tag">COMPANY LAW</span>
-        <div class="timer" id="timer-display">03:00</div>
-      </div>
-
-      <div class="question" id="q-text">Loading question...</div>
-      <div class="options" id="opt-container"></div>
-
-      <div style="clear: both; overflow: hidden;">
-        <button class="btn-action" id="next-btn" onclick="submitAnswer()" style="display:none;">Next Question →</button>
+    <!-- HOME / REVISION VIEW -->
+    <div id="view-home" class="view-section active">
+      <div class="card">
+        <h3>Section Drill & Revision</h3>
+        <p style="color: var(--subtext);">Interactive practice questions for CS Executive Group 1 & Group 2 papers.</p>
+        <p><strong>Company Law Question:</strong> Under Section 135 of the Companies Act 2013, what percentage of net profit is spent on CSR?</p>
+        <button class="btn-action" onclick="alert('Correct Answer: 2%')">Show Answer</button>
       </div>
     </div>
+
+    <!-- SYLLABUS VIEW -->
+    <div id="view-syllabus" class="view-section">
+      <div class="card">
+        <h3 style="color:var(--accent);">Group 1 Papers</h3>
+        <ul>
+          <li>Paper 1: Jurisprudence, Interpretation & General Laws (JIGL)</li>
+          <li>Paper 2: Company Law & Practice</li>
+          <li>Paper 3: Setting Up of Business, Industrial & Labour Laws</li>
+          <li>Paper 4: Corporate Accounting & Financial Management</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--accent);">Group 2 Papers</h3>
+        <ul>
+          <li>Paper 5: Capital Market & Securities Laws (CMSL)</li>
+          <li>Paper 6: Economic, Commercial & Intellectual Property Laws</li>
+          <li>Paper 7: Tax Laws & Practice</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PAST YEAR PAPERS (PYQ) VIEW -->
+    <div id="view-pyq" class="view-section">
+      <div class="card">
+        <h3>Previous Year Question Papers</h3>
+        <p style="color: var(--subtext);">Download & practice official ICSI past year exam papers.</p>
+        <ul>
+          <li>📄 Company Law — June 2025 Paper</li>
+          <li>📄 Tax Laws & Practice — December 2024 Paper</li>
+          <li>📄 JIGL — June 2024 Paper</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
 <script>
-  // CHANGE ACCESS PASSCODE HERE
   const SECRET_PIN = "1432";
 
-  const questions = [
-    {
-      paper: "Company Law",
-      q: "Under Section 135 of the Companies Act 2013, what percentage of average net profits of preceding 3 financial years must be spent on CSR?",
-      opts: ["1%", "2%", "3%", "5%"],
-      ans: 1
-    },
-    {
-      paper: "Jurisprudence (JIGL)",
-      q: "Under the Limitation Act 1963, what is the limitation period for filing a suit relating to accounts or contracts?",
-      opts: ["1 Year", "3 Years", "5 Years", "12 Years"],
-      ans: 1
-    },
-    {
-      paper: "Tax Laws",
-      q: "What is the threshold limit for mandatory GST Registration for a standard service provider?",
-      opts: ["₹10 Lakhs", "₹20 Lakhs", "₹40 Lakhs", "₹50 Lakhs"],
-      ans: 1
-    }
-  ];
-
-  let storage = JSON.parse(localStorage.getItem('cs_exec_portal')) || { attempted: 0, correct: 0 };
-  let qIndex = 0, selectedOpt = null, timerSeconds = 180, timerInterval;
+  // Target Exam Date (Set to ICSI Executive Exam Date e.g., Dec 21, 2026)
+  const examDate = new Date("December 21, 2026 09:00:00").getTime();
 
   function unlockPortal() {
     const input = document.getElementById('pin-entry').value;
     if (input === SECRET_PIN) {
       document.getElementById('lock-screen').style.display = 'none';
       document.getElementById('app-wrapper').style.display = 'block';
-      initApp();
+      startExamCountdown();
     } else {
       alert("Incorrect PIN code.");
     }
   }
 
-  function initApp() {
-    renderQuestion();
-    startTimer();
-    updateDashboard();
-  }
+  function startExamCountdown() {
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = examDate - now;
 
-  function startTimer() {
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-      if(timerSeconds <= 0) {
-        clearInterval(timerInterval);
-        alert("🚨 Time limit exceeded for this question!");
-        submitAnswer(true);
-      } else {
-        timerSeconds--;
-        let m = Math.floor(timerSeconds / 60);
-        let s = timerSeconds % 60;
-        document.getElementById('timer-display').innerText = 
-          `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      if (distance > 0) {
+        document.getElementById('timer-days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById('timer-hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('timer-mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById('timer-secs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
       }
     }, 1000);
   }
 
-  function renderQuestion() {
-    selectedOpt = null;
-    document.getElementById('next-btn').style.display = 'none';
-    const curr = questions[qIndex];
-    document.getElementById('paper-tag').innerText = curr.paper.toUpperCase();
-    document.getElementById('q-text').innerText = curr.q;
+  function switchTab(tabName) {
+    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+    document.getElementById('view-' + tabName).classList.add('active');
     
-    const container = document.getElementById('opt-container');
-    container.innerHTML = '';
-    curr.opts.forEach((opt, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'opt-btn';
-      btn.innerText = opt;
-      btn.onclick = () => {
-        document.querySelectorAll('.opt-btn').forEach(b => b.style.borderColor = 'var(--border)');
-        btn.style.borderColor = 'var(--accent)';
-        selectedOpt = idx;
-        document.getElementById('next-btn').style.display = 'block';
-      };
-      container.appendChild(btn);
-    });
-  }
-
-  function submitAnswer(forcedFail = false) {
-    const curr = questions[qIndex];
-    const isCorrect = !forcedFail && (selectedOpt === curr.ans);
-    storage.attempted += 1;
-    if(isCorrect) storage.correct += 1;
-
-    localStorage.setItem('cs_exec_portal', JSON.stringify(storage));
-    updateDashboard();
-
-    qIndex = (qIndex + 1) % questions.length;
-    timerSeconds = 180;
-    renderQuestion();
-  }
-
-  function updateDashboard() {
-    document.getElementById('stat-attempted').innerText = storage.attempted;
-    let acc = storage.attempted > 0 ? Math.round((storage.correct / storage.attempted) * 100) : 0;
-    document.getElementById('stat-accuracy').innerText = acc + '%';
-
-    const alarmBanner = document.getElementById('alarm-banner');
-    const alarmText = document.getElementById('alarm-text');
-    const statStatus = document.getElementById('stat-status');
-
-    if (storage.attempted >= 3 && acc < 50) {
-      alarmBanner.className = 'alarm-box alarm-danger';
-      alarmText.innerText = "🚨 ALARM: Current accuracy is " + acc + "%. This is below the mandatory ICSI 50% passing threshold!";
-      statStatus.innerText = "FAIL RISK";
-      statStatus.style.color = "var(--danger)";
-    } else if (storage.attempted >= 3 && acc >= 50) {
-      alarmBanner.className = 'alarm-box alarm-success';
-      alarmText.innerText = "🟢 PASSING: Current performance meets ICSI aggregate standards.";
-      statStatus.innerText = "ON TRACK";
-      statStatus.style.color = "var(--success)";
+    if(tabName !== 'home') {
+      document.getElementById('btn-' + tabName).classList.add('active');
+    } else {
+      document.getElementById('btn-home').classList.add('active');
     }
   }
 </script>
