@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICSI CS Executive Master Portal</title>
-  <!-- Prevents browser from hanging/loading waiting for favicon -->
+  <title>ICSI CS Executive Study Portal</title>
   <link rel="icon" href="data:,">
   <style>
     :root {
-      --primary: #6366f1;
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text: #f8fafc;
-      --subtext: #94a3b8;
-      --border: #334155;
-      --danger: #ef4444;
+      --icsi-blue: #0b3c5d;
+      --icsi-gold: #d9b310;
+      --icsi-accent: #328cc1;
+      --bg: #f4f6f9;
+      --card-bg: #ffffff;
+      --text: #1d2731;
+      --subtext: #5c6b73;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg);
       color: var(--text);
     }
@@ -31,51 +32,60 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      text-align: center;
-      padding: 20px;
+      background: var(--icsi-blue);
+      color: white;
     }
 
     .pin-box {
       background: var(--card-bg);
+      color: var(--text);
       padding: 30px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      width: 100%;
-      max-width: 320px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      width: 300px;
+      text-align: center;
     }
 
     input[type="password"], input[type="text"] {
       width: 90%;
       padding: 10px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #090d16;
-      color: #fff;
+      margin: 12px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
       font-size: 1rem;
     }
 
     button {
-      background: var(--primary);
+      background: var(--icsi-blue);
       color: white;
       border: none;
       padding: 10px 20px;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
-      transition: opacity 0.2s;
     }
 
-    button:hover { opacity: 0.9; }
+    button:hover { background: var(--icsi-accent); }
 
-    /* Clean 3-Column Header Grid */
+    /* ICSI Institutional Header Navigation */
+    .top-bar {
+      background: #072a40;
+      color: #fff;
+      padding: 6px 24px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     header {
-      background: var(--card-bg);
+      background: var(--icsi-blue);
+      color: white;
       padding: 12px 24px;
-      border-bottom: 1px solid var(--border);
       display: grid;
       grid-template-columns: 1fr 2fr 1fr;
       align-items: center;
+      border-bottom: 4px solid var(--icsi-gold);
     }
 
     .logo-container {
@@ -83,28 +93,30 @@
       align-items: center;
       gap: 12px;
       cursor: pointer;
-      user-select: none;
     }
 
-    .icsi-badge {
-      background: #1e40af;
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 6px 10px;
-      border-radius: 6px;
+    .icsi-crest {
+      background: #ffffff;
+      color: var(--icsi-blue);
+      font-weight: 900;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      border-radius: 4px;
       letter-spacing: 1px;
     }
 
     .timer-box {
       text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .timer-text {
       font-size: 1.25rem;
       font-weight: 700;
-      color: #38bdf8;
-      letter-spacing: 0.5px;
+      color: var(--icsi-gold);
     }
 
     .nav-tabs {
@@ -115,56 +127,82 @@
 
     .tab-btn {
       background: transparent;
-      border: 1px solid var(--border);
-      color: var(--subtext);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: white;
       padding: 8px 16px;
-      border-radius: 6px;
+      border-radius: 4px;
     }
 
     .tab-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
+      background: var(--icsi-gold);
+      color: var(--icsi-blue);
+      border-color: var(--icsi-gold);
+      font-weight: bold;
     }
 
-    main { padding: 25px 20px; max-width: 1200px; margin: 0 auto; }
+    /* Main Container & Column Layout */
+    main { padding: 25px 24px; max-width: 1280px; margin: 0 auto; }
 
-    .grid {
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--icsi-blue);
+      margin-bottom: 15px;
+      border-left: 4px solid var(--icsi-gold);
+      padding-left: 10px;
+    }
+
+    .columns-wrapper {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
     }
 
-    .card {
-      background: var(--card-bg);
+    .column-box {
+      background: white;
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 15px;
       cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.2s;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
+      border-color: var(--icsi-accent);
+      background: #ffffff;
+      transform: translateX(4px);
     }
 
     .breadcrumb {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       margin-bottom: 20px;
+      font-size: 0.95rem;
       color: var(--subtext);
     }
 
-    .breadcrumb span { cursor: pointer; color: var(--primary); }
+    .breadcrumb span { cursor: pointer; color: var(--icsi-accent); font-weight: bold; }
 
     iframe {
       width: 100%;
-      height: 75vh;
+      height: 78vh;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      background: #fff;
+      border-radius: 6px;
     }
 
     .hidden { display: none !important; }
@@ -175,21 +213,29 @@
   <!-- Lock Screen -->
   <div id="lock-screen">
     <div class="pin-box">
-      <h2>ICSI CS Executive Master Portal</h2>
-      <p style="color:var(--subtext)">Enter PIN Code</p>
-      <input type="password" id="pin-entry" placeholder="****" />
+      <h3 style="margin-top:0">THE INSTITUTE OF COMPANY SECRETARIES OF INDIA</h3>
+      <p style="color:var(--subtext)">CS Executive Student Portal</p>
+      <input type="password" id="pin-entry" placeholder="Enter PIN" />
       <br>
-      <button onclick="unlockPortal()">Unlock Portal</button>
+      <button onclick="unlockPortal()">Access Portal</button>
     </div>
   </div>
 
   <!-- Main Portal -->
   <div id="app-wrapper" class="hidden">
+    <div class="top-bar">
+      <span>ICSI CS Executive Academic Repository</span>
+      <span>Status: Active Session</span>
+    </div>
+
     <header>
       <!-- Left: Logo & Home Link -->
-      <div class="logo-container" onclick="showSubjects()" title="Click to go Home">
-        <span class="icsi-badge">ICSI</span>
-        <span style="font-weight: bold; font-size: 1.1rem; color: #fff;">CS Executive</span>
+      <div class="logo-container" onclick="showSubjects()" title="Return to Home Dashboard">
+        <span class="icsi-crest">ICSI</span>
+        <div>
+          <div style="font-weight: bold; font-size: 1.05rem;">CS EXECUTIVE</div>
+          <div style="font-size: 0.75rem; opacity: 0.8;">Study & Reference Portal</div>
+        </div>
       </div>
 
       <!-- Center: Prominent Timer -->
@@ -208,46 +254,65 @@
       <!-- Syllabus Section -->
       <section id="tab-syllabus">
         <div class="breadcrumb" id="breadcrumb">
-          <span onclick="showSubjects()">Syllabus</span>
+          <span onclick="showSubjects()">Syllabus Home</span>
         </div>
 
-        <!-- Level 1: Subject Cards -->
-        <div id="view-subjects" class="grid">
-          <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
-            <h3>Company Law & Practice</h3>
-            <p style="color:var(--subtext)">Group 1 - Paper 2</p>
-          </div>
-          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf', false)">
-            <h3>Jurisprudence (JIGL)</h3>
-            <p style="color:var(--subtext)">Group 1 - Paper 1</p>
-          </div>
-          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf', false)">
-            <h3>Setting Up of Business (SBILL)</h3>
-            <p style="color:var(--subtext)">Group 1 - Paper 3</p>
-          </div>
-          <div class="card" onclick="openSubjectFolder('tax', 'Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf', false)">
-            <h3>Tax Laws & Practice</h3>
-            <p style="color:var(--subtext)">Group 2 - Paper 7</p>
+        <!-- Level 1: Multi-Column Subject View -->
+        <div id="view-subjects">
+          <div class="columns-wrapper">
+            <!-- Column 1: Group 1 -->
+            <div class="column-box">
+              <div class="section-title">GROUP 1 PAPERS</div>
+              <div class="grid-cards">
+                <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence, Interpretation & General Laws', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf', false)">
+                  <h4 style="margin:0; color:var(--icsi-blue)">Paper 1: Jurisprudence (JIGL)</h4>
+                  <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Official ICSI Module & Study Materials</p>
+                </div>
+
+                <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
+                  <h4 style="margin:0; color:var(--icsi-blue)">Paper 2: Company Law & Practice</h4>
+                  <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Includes Companies Act Laws & Sections</p>
+                </div>
+
+                <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business Entities & Labour Laws', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf', false)">
+                  <h4 style="margin:0; color:var(--icsi-blue)">Paper 3: Setting Up of Business (SBILL)</h4>
+                  <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Official ICSI Module & Study Materials</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Column 2: Group 2 -->
+            <div class="column-box">
+              <div class="section-title">GROUP 2 PAPERS</div>
+              <div class="grid-cards">
+                <div class="card" onclick="openSubjectFolder('tax', 'Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf', false)">
+                  <h4 style="margin:0; color:var(--icsi-blue)">Paper 7: Tax Laws & Practice</h4>
+                  <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Direct & Indirect Taxation Modules</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Level 2: Inside Subject Folder -->
-        <div id="view-folder" class="grid hidden">
-          <div class="card" onclick="openStudyMaterial()">
-            <h3>📖 Study Material</h3>
-            <p style="color:var(--subtext)">Official ICSI PDF Textbook</p>
-          </div>
-          <div class="card">
-            <h3>❓ Previous Question Paper</h3>
-            <p style="color:var(--subtext)">Past Exam Papers & Answers</p>
-          </div>
-          <div class="card">
-            <h3>📝 Revision Notes</h3>
-            <p style="color:var(--subtext)">Chapter Summaries & Key Points</p>
-          </div>
-          <div class="card hidden" id="card-company-laws" onclick="switchTab('sections')">
-            <h3>⚖️ Company Laws & Sections</h3>
-            <p style="color:var(--subtext)">Access Companies Act Sections Database</p>
+        <div id="view-folder" class="hidden">
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:15px;">
+            <div class="card" onclick="openStudyMaterial()">
+              <h4 style="margin:0; color:var(--icsi-blue)">📖 Study Material</h4>
+              <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Official ICSI Textbook PDF</p>
+            </div>
+            <div class="card">
+              <h4 style="margin:0; color:var(--icsi-blue)">❓ Previous Question Papers</h4>
+              <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Past Exam Papers & Suggested Answers</p>
+            </div>
+            <div class="card">
+              <h4 style="margin:0; color:var(--icsi-blue)">📝 Revision Notes</h4>
+              <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Chapter Summaries & Key Points</p>
+            </div>
+            <div class="card hidden" id="card-company-laws" onclick="switchTab('sections')">
+              <h4 style="margin:0; color:var(--icsi-blue)">⚖️ Companies Act Sections & Laws</h4>
+              <p style="margin:5px 0 0 0; color:var(--subtext); font-size:0.85rem">Access Company Law Database</p>
+            </div>
           </div>
         </div>
 
@@ -255,7 +320,7 @@
         <div id="view-pdf-reader" class="hidden">
           <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
             <h3 id="pdf-title" style="margin:0">Official Study Material</h3>
-            <button onclick="openExternalPdf()">Open PDF in New Window ↗</button>
+            <button onclick="openExternalPdf()">Open in New Tab ↗</button>
           </div>
           <iframe id="pdf-frame" src=""></iframe>
         </div>
@@ -263,8 +328,10 @@
 
       <!-- Sections Database Tab -->
       <section id="tab-sections" class="hidden">
-        <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or keyword..." onkeyup="filterSections()" style="margin-bottom:20px;">
-        <div id="all-sections-container" class="grid"></div>
+        <div class="column-box">
+          <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or legal keyword..." onkeyup="filterSections()" style="width:98%; margin-bottom:15px;">
+          <div id="all-sections-container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:15px;"></div>
+        </div>
       </section>
     </main>
   </div>
@@ -282,7 +349,7 @@
         const now = new Date().getTime();
         const distance = examDate - now;
         if (distance < 0) {
-          document.getElementById("timer").innerHTML = "Dec 2026 Exam Period Started";
+          document.getElementById("timer").innerHTML = "Dec 2026 Examination in Progress";
           return;
         }
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -303,7 +370,7 @@
         renderSections(loadedSections);
       } catch (e) {
         console.error("Error loading sections:", e);
-        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repository.</p>';
+        container.innerHTML = '<p style="color:red">Could not load sections.json. Ensure file exists in repo.</p>';
       }
     }
 
@@ -315,9 +382,9 @@
       }
       container.innerHTML = sections.map(s => `
         <div class="card">
-          <h4 style="margin:0; color:var(--primary)">Section ${s.id}: ${s.title}</h4>
+          <h4 style="margin:0; color:var(--icsi-blue)">Section ${s.id}: ${s.title}</h4>
           <small style="color:var(--subtext)">${s.chapter}</small>
-          <p style="font-size:0.9rem; margin-top:8px; white-space: pre-line;">${s.content}</p>
+          <p style="font-size:0.88rem; margin-top:8px; white-space: pre-line;">${s.content}</p>
         </div>
       `).join('');
     }
@@ -376,7 +443,7 @@
       }
 
       document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Syllabus</span> &gt; <span>${name}</span>
+        <span onclick="showSubjects()">Syllabus Home</span> &gt; <span>${name}</span>
       `;
     }
 
@@ -385,17 +452,17 @@
       document.getElementById('view-subjects').classList.remove('hidden');
       document.getElementById('view-folder').classList.add('hidden');
       document.getElementById('view-pdf-reader').classList.add('hidden');
-      document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus</span>`;
+      document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus Home</span>`;
     }
 
     function openStudyMaterial() {
       document.getElementById('view-folder').classList.add('hidden');
       document.getElementById('view-pdf-reader').classList.remove('hidden');
-      document.getElementById('pdf-title').innerText = `${activeSubjectName} - Official ICSI Study Material`;
+      document.getElementById('pdf-title').innerText = `${activeSubjectName} - Study Material`;
       document.getElementById('pdf-frame').src = activePdfUrl;
 
       document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Syllabus</span> &gt; 
+        <span onclick="showSubjects()">Syllabus Home</span> &gt; 
         <span onclick="openSubjectFolder('', '${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
         <span>Study Material</span>
       `;
