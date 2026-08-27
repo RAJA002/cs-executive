@@ -175,13 +175,25 @@
     </main>
   </div>
 
-  <script>
+ <script>
     const SECRET_PIN = "2026";
     const examDate = new Date("December 21, 2026 09:00:00").getTime();
+
+    // Check if user is already unlocked when the page loads
+    window.addEventListener("DOMContentLoaded", () => {
+      if (sessionStorage.getItem("portal_unlocked") === "true") {
+        document.getElementById("lock-screen").classList.add("hidden");
+        document.getElementById("portal-content").classList.remove("hidden");
+        startExamCountdown();
+      }
+    });
 
     function unlockPortal() {
       const enteredPin = document.getElementById("pin-input").value;
       if (enteredPin === SECRET_PIN) {
+        // Save authentication state in browser session
+        sessionStorage.setItem("portal_unlocked", "true");
+        
         document.getElementById("lock-screen").classList.add("hidden");
         document.getElementById("portal-content").classList.remove("hidden");
         startExamCountdown();
