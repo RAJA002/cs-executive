@@ -6,10 +6,9 @@
   <title>ICSI CS Executive Master Portal</title>
   <style>
     :root {
+      --primary: #6366f1;
       --bg: #0f172a;
       --card-bg: #1e293b;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
       --text: #f8fafc;
       --subtext: #94a3b8;
       --border: #334155;
@@ -23,6 +22,7 @@
       color: var(--text);
     }
 
+    /* Lock Screen */
     #lock-screen {
       display: flex;
       flex-direction: column;
@@ -54,18 +54,19 @@
     }
 
     button {
-      background: var(--accent);
+      background: var(--primary);
       color: white;
       border: none;
       padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.2s;
+      transition: opacity 0.2s;
     }
 
-    button:hover { background: var(--accent-hover); }
+    button:hover { opacity: 0.9; }
 
+    /* Main Dashboard Layout */
     header {
       background: var(--card-bg);
       padding: 15px 20px;
@@ -89,9 +90,9 @@
     }
 
     .tab-btn.active {
-      background: var(--accent);
+      background: var(--primary);
       color: white;
-      border-color: var(--accent);
+      border-color: var(--primary);
     }
 
     main { padding: 20px; max-width: 1200px; margin: 0 auto; }
@@ -113,7 +114,7 @@
 
     .card:hover {
       transform: translateY(-3px);
-      border-color: var(--accent);
+      border-color: var(--primary);
     }
 
     .breadcrumb {
@@ -124,7 +125,7 @@
       color: var(--subtext);
     }
 
-    .breadcrumb span { cursor: pointer; color: var(--accent); }
+    .breadcrumb span { cursor: pointer; color: var(--primary); }
 
     iframe {
       width: 100%;
@@ -141,18 +142,18 @@
   <!-- Lock Screen -->
   <div id="lock-screen">
     <div class="pin-box">
-      <h2>ICSI CS Executive Portal</h2>
-      <p style="color:var(--subtext)">Enter PIN to unlock</p>
+      <h2>ICSI CS Executive Master Portal</h2>
+      <p style="color:var(--subtext)">Enter PIN Code</p>
       <input type="password" id="pin-entry" placeholder="****" />
       <br>
       <button onclick="unlockPortal()">Unlock Portal</button>
     </div>
   </div>
 
-  <!-- Main Portal -->
+  <!-- Dashboard -->
   <div id="app-wrapper" class="hidden">
     <header>
-      <h2 style="margin:0">CS Executive Hub</h2>
+      <h2 style="margin:0">CS Executive Portal</h2>
       <div id="timer" style="color:var(--subtext)">Countdown loading...</div>
     </header>
 
@@ -168,17 +169,17 @@
           <span>Subjects</span>
         </div>
 
-        <!-- Subject Level -->
+        <!-- Level 1: Subject Folders -->
         <div id="view-subjects" class="grid">
           <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf')">
             <h3>Company Law & Practice</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 2</p>
           </div>
-          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence, Interpretation & General Laws', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf')">
+          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf')">
             <h3>Jurisprudence (JIGL)</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 1</p>
           </div>
-          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business, Industrial & Labour Laws', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf')">
+          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf')">
             <h3>Setting Up of Business (SBILL)</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 3</p>
           </div>
@@ -188,27 +189,27 @@
           </div>
         </div>
 
-        <!-- Subject Folder Level -->
+        <!-- Level 2: Inside Subject Folder -->
         <div id="view-folder" class="grid hidden">
           <div class="card" onclick="openStudyMaterial()">
             <h3>📖 Study Material</h3>
-            <p style="color:var(--subtext)">Click to view official ICSI textbook PDF</p>
+            <p style="color:var(--subtext)">Open ICSI Official PDF Textbook</p>
           </div>
           <div class="card">
             <h3>📝 Revision Notes</h3>
-            <p style="color:var(--subtext)">Chapter summaries and key notes</p>
+            <p style="color:var(--subtext)">Chapter Summaries & Key Points</p>
           </div>
           <div class="card">
             <h3>❓ Past Year Questions (PYQ)</h3>
-            <p style="color:var(--subtext)">Practice questions & suggested answers</p>
+            <p style="color:var(--subtext)">Exam Questions & Answers</p>
           </div>
         </div>
 
-        <!-- PDF View -->
+        <!-- Level 3: PDF Reader View -->
         <div id="view-pdf-reader" class="hidden">
           <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
             <h3 id="pdf-title" style="margin:0">Official Study Material</h3>
-            <button onclick="openExternalPdf()">Open in Full Screen ↗</button>
+            <button onclick="openExternalPdf()">Open Fullscreen ↗</button>
           </div>
           <iframe id="pdf-frame" src=""></iframe>
         </div>
@@ -254,7 +255,7 @@
         renderSections(loadedSections);
       } catch (e) {
         console.error("Error loading sections:", e);
-        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file exists in the repository.</p>';
+        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Make sure the file is uploaded to your GitHub repository.</p>';
       }
     }
 
@@ -266,7 +267,7 @@
       }
       container.innerHTML = sections.map(s => `
         <div class="card">
-          <h4 style="margin:0; color:var(--accent)">Section ${s.id}: ${s.title}</h4>
+          <h4 style="margin:0; color:var(--primary)">Section ${s.id}: ${s.title}</h4>
           <small style="color:var(--subtext)">${s.chapter}</small>
           <p style="font-size:0.9rem; margin-top:8px; white-space: pre-line;">${s.content}</p>
         </div>
