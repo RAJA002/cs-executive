@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICSI CS Executive - Dashboard</title>
+  <title>ICSI CS Executive - Home</title>
   <link rel="icon" href="data:,">
   <style>
     :root {
@@ -22,7 +22,6 @@
       color: var(--text);
     }
 
-    /* Top Bar Header */
     header {
       background: var(--card-bg);
       padding: 14px 24px;
@@ -32,7 +31,6 @@
       align-items: center;
     }
 
-    /* Top Left: Logo Home Button */
     .logo-container {
       display: flex;
       align-items: center;
@@ -51,7 +49,6 @@
       letter-spacing: 1px;
     }
 
-    /* Top Middle: Syllabus Nav Button */
     .nav-btn {
       background: var(--primary);
       color: white;
@@ -64,7 +61,6 @@
 
     .nav-btn:hover { opacity: 0.9; }
 
-    /* Top Right: Countdown Timer */
     .timer-text {
       font-size: 1.15rem;
       font-weight: 700;
@@ -72,9 +68,9 @@
     }
 
     main {
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
-      max-width: 800px;
+      max-width: 700px;
       margin: 0 auto;
     }
 
@@ -89,23 +85,23 @@
 <body>
 
   <header>
-    <!-- Top Left: Logo / Home Link -->
+    <!-- Top Left: ICSI Logo Home Link -->
     <a href="index.html" class="logo-container" title="Home">
       <span class="icsi-badge">ICSI</span>
       <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
     </a>
 
-    <!-- Top Middle: Syllabus Nav Link -->
+    <!-- Middle: Syllabus Link -->
     <a href="syllabus.html" class="nav-btn">Syllabus</a>
 
-    <!-- Top Right: Exam Countdown -->
+    <!-- Top Right: Countdown -->
     <div id="timer" class="timer-text">Loading Exam Countdown...</div>
   </header>
 
   <main>
     <div class="welcome-card">
       <h2>ICSI CS Executive Study Portal</h2>
-      <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the navigation header to access Group 1 and Group 2 subject materials, past papers, and Companies Act section databases.</p>
+      <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the navigation header above to access all Group 1 & Group 2 subject folders, official study materials, and past exam papers.</p>
     </div>
   </main>
 
