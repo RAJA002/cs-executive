@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Syllabus & Materials - ICSI CS Executive</title>
+  <title>ICSI CS Executive - Home</title>
   <link rel="icon" href="data:,">
   <style>
     :root {
@@ -13,7 +13,6 @@
       --text: #f8fafc;
       --subtext: #94a3b8;
       --border: #334155;
-      --danger: #ef4444;
     }
 
     body {
@@ -57,9 +56,10 @@
       padding: 8px 20px;
       border-radius: 6px;
       font-weight: bold;
-      border: none;
-      cursor: pointer;
+      transition: opacity 0.2s;
     }
+
+    .nav-btn:hover { opacity: 0.9; }
 
     .timer-text {
       font-size: 1.15rem;
@@ -67,142 +67,46 @@
       color: #38bdf8;
     }
 
-    main { padding: 30px 20px; max-width: 1100px; margin: 0 auto; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+    main {
+      padding: 80px 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
-    .card {
+    .welcome-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      cursor: pointer;
-      transition: transform 0.2s, border-color 0.2s;
+      padding: 40px;
+      border-radius: 12px;
     }
-
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-    }
-
-    .breadcrumb {
-      margin-bottom: 20px;
-      color: var(--subtext);
-    }
-
-    .breadcrumb span { cursor: pointer; color: var(--primary); font-weight: bold; }
-
-    iframe {
-      width: 100%;
-      height: 75vh;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: #fff;
-    }
-
-    input[type="text"] {
-      width: 95%;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #090d16;
-      color: #fff;
-      font-size: 1rem;
-    }
-
-    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
   <header>
+    <!-- Top Left: ICSI Logo Home Link -->
     <a href="index.html" class="logo-container" title="Home">
       <span class="icsi-badge">ICSI</span>
       <span style="font-weight: bold; font-size: 1.1rem;">CS Executive</span>
     </a>
 
+    <!-- Middle: Syllabus Link -->
     <a href="syllabus.html" class="nav-btn">Syllabus</a>
 
+    <!-- Top Right: Countdown -->
     <div id="timer" class="timer-text">Loading Exam Countdown...</div>
   </header>
 
   <main>
-    <div class="breadcrumb" id="breadcrumb">
-      <span onclick="showSubjects()">Syllabus</span>
-    </div>
-
-    <!-- Step 1: Subjects List -->
-    <div id="view-subjects" class="grid">
-      <div class="card" onclick="openSubjectFolder('Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
-        <h3>Company Law & Practice</h3>
-        <p style="color:var(--subtext)">Group 1 - Paper 2</p>
-      </div>
-
-      <div class="card" onclick="openSubjectFolder('Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf', false)">
-        <h3>Jurisprudence (JIGL)</h3>
-        <p style="color:var(--subtext)">Group 1 - Paper 1</p>
-      </div>
-
-      <div class="card" onclick="openSubjectFolder('Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf', false)">
-        <h3>Setting Up of Business (SBILL)</h3>
-        <p style="color:var(--subtext)">Group 1 - Paper 3</p>
-      </div>
-
-      <div class="card" onclick="openSubjectFolder('Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf', false)">
-        <h3>Tax Laws & Practice</h3>
-        <p style="color:var(--subtext)">Group 2 - Paper 7</p>
-      </div>
-    </div>
-
-    <!-- Step 2: Resources inside selected Subject -->
-    <div id="view-folder" class="grid hidden">
-      <div class="card" onclick="openStudyMaterial()">
-        <h3>📖 Study Material</h3>
-        <p style="color:var(--subtext)">Official ICSI PDF Textbook</p>
-      </div>
-      <div class="card">
-        <h3>❓ Previous Question Paper</h3>
-        <p style="color:var(--subtext)">Past Exam Papers</p>
-      </div>
-      <div class="card">
-        <h3>📝 Revision Notes</h3>
-        <p style="color:var(--subtext)">Summaries & Highlights</p>
-      </div>
-      <!-- Companies Act Sections (Only visible for Company Law) -->
-      <div class="card hidden" id="card-company-laws" onclick="openCompanyLawsDB()">
-        <h3>⚖️ Companies Act Sections & Laws</h3>
-        <p style="color:var(--subtext)">Access Companies Act Database</p>
-      </div>
-    </div>
-
-    <!-- Step 3A: PDF Viewer -->
-    <div id="view-pdf" class="hidden">
-      <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-        <h3 id="pdf-title" style="margin:0">Study Material</h3>
-        <button class="nav-btn" onclick="openExternalPdf()">Open PDF ↗</button>
-      </div>
-      <iframe id="pdf-frame" src=""></iframe>
-    </div>
-
-    <!-- Step 3B: Companies Act Sections Database View -->
-    <div id="view-sections-db" class="hidden">
-      <h3>Companies Act Sections & Laws</h3>
-      <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or legal keyword..." onkeyup="filterSections()">
-      <div id="all-sections-container" class="grid"></div>
+    <div class="welcome-card">
+      <h2>ICSI CS Executive Study Portal</h2>
+      <p style="color:var(--subtext)">Click <strong>Syllabus</strong> in the navigation header above to access all Group 1 & Group 2 subject folders, official study materials, and past exam papers.</p>
     </div>
   </main>
 
   <script>
     const examDate = new Date("December 21, 2026 09:00:00").getTime();
-    let activePdfUrl = "";
-    let activeSubjectName = "";
-    let isCompanyLawActive = false;
-    let loadedSections = [];
 
     function startExamCountdown() {
       setInterval(() => {
@@ -219,103 +123,6 @@
         document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m ${seconds}s`;
       }, 1000);
     }
-
-    function openSubjectFolder(name, pdfUrl, includesLaws) {
-      activePdfUrl = pdfUrl;
-      activeSubjectName = name;
-      isCompanyLawActive = includesLaws;
-
-      document.getElementById('view-subjects').classList.add('hidden');
-      document.getElementById('view-folder').classList.remove('hidden');
-      document.getElementById('view-pdf').classList.add('hidden');
-      document.getElementById('view-sections-db').classList.add('hidden');
-
-      if (includesLaws) {
-        document.getElementById('card-company-laws').classList.remove('hidden');
-      } else {
-        document.getElementById('card-company-laws').classList.add('hidden');
-      }
-
-      document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Syllabus</span> &gt; <span>${name}</span>
-      `;
-    }
-
-    function showSubjects() {
-      document.getElementById('view-subjects').classList.remove('hidden');
-      document.getElementById('view-folder').classList.add('hidden');
-      document.getElementById('view-pdf').classList.add('hidden');
-      document.getElementById('view-sections-db').classList.add('hidden');
-      document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus</span>`;
-    }
-
-    function openStudyMaterial() {
-      document.getElementById('view-folder').classList.add('hidden');
-      document.getElementById('view-pdf').classList.remove('hidden');
-      document.getElementById('pdf-title').innerText = `${activeSubjectName} - Study Material`;
-      document.getElementById('pdf-frame').src = activePdfUrl;
-
-      document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Syllabus</span> &gt; 
-        <span onclick="openSubjectFolder('${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
-        <span>Study Material</span>
-      `;
-    }
-
-    async function openCompanyLawsDB() {
-      document.getElementById('view-folder').classList.add('hidden');
-      document.getElementById('view-sections-db').classList.remove('hidden');
-
-      document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Syllabus</span> &gt; 
-        <span onclick="openSubjectFolder('${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
-        <span>Companies Act Sections</span>
-      `;
-
-      if (loadedSections.length === 0) {
-        const container = document.getElementById('all-sections-container');
-        try {
-          const res = await fetch('sections.json');
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          loadedSections = await res.json();
-          renderSections(loadedSections);
-        } catch (e) {
-          console.error("Error loading sections:", e);
-          container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repository.</p>';
-        }
-      }
-    }
-
-    function renderSections(sections) {
-      const container = document.getElementById('all-sections-container');
-      if (sections.length === 0) {
-        container.innerHTML = '<p style="color:var(--subtext)">No matching sections found.</p>';
-        return;
-      }
-      container.innerHTML = sections.map(s => `
-        <div class="card" style="cursor:default;">
-          <h4 style="margin:0; color:var(--primary)">Section ${s.id}: ${s.title}</h4>
-          <small style="color:var(--subtext)">${s.chapter}</small>
-          <p style="font-size:0.9rem; margin-top:8px; white-space: pre-line;">${s.content}</p>
-        </div>
-      `).join('');
-    }
-
-    function filterSections() {
-      const query = document.getElementById('sec-search').value.toLowerCase().trim();
-      const filtered = loadedSections.filter(sec => 
-        sec.id.toString().includes(query) ||
-        sec.title.toLowerCase().includes(query) ||
-        sec.chapter.toLowerCase().includes(query) ||
-        sec.content.toLowerCase().includes(query)
-      );
-      renderSections(filtered);
-    }
-
-    function openExternalPdf() {
-      if (activePdfUrl) window.open(activePdfUrl, '_blank');
-    }
-
     startExamCountdown();
   </script>
 </body>
