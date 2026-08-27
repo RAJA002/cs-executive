@@ -66,27 +66,53 @@
 
     button:hover { opacity: 0.9; }
 
-    /* Main Dashboard Layout */
+    /* New Clean Header Grid (3 Columns) */
     header {
       background: var(--card-bg);
-      padding: 15px 20px;
+      padding: 12px 24px;
       border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
       align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .icsi-logo {
+      height: 42px;
+      width: auto;
+      border-radius: 4px;
+    }
+
+    .timer-box {
+      text-align: center;
+    }
+
+    .timer-text {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 0.5px;
     }
 
     .nav-tabs {
       display: flex;
+      justify-content: flex-end;
       gap: 10px;
-      padding: 15px 20px;
-      background: #141e33;
     }
 
     .tab-btn {
       background: transparent;
       border: 1px solid var(--border);
       color: var(--subtext);
+      padding: 8px 16px;
+      border-radius: 6px;
     }
 
     .tab-btn.active {
@@ -95,7 +121,7 @@
       border-color: var(--primary);
     }
 
-    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    main { padding: 25px 20px; max-width: 1200px; margin: 0 auto; }
 
     .grid {
       display: grid;
@@ -153,37 +179,46 @@
   <!-- Dashboard -->
   <div id="app-wrapper" class="hidden">
     <header>
-      <h2 style="margin:0">CS Executive Portal</h2>
-      <div id="timer" style="color:var(--subtext)">Countdown loading...</div>
+      <!-- Left Column: ICSI Logo (Home Button) -->
+      <div class="logo-container" onclick="showSubjects()" title="Return to Home Dashboard">
+        <img src="https://www.icsi.edu/media/webmodules/icsi_logo.png" alt="ICSI Logo" class="icsi-logo" onerror="this.src='https://upload.wikimedia.org/wikipedia/en/8/8b/ICSI_Logo.png'">
+        <span style="font-weight: bold; font-size: 1.1rem; color: #fff;">CS Executive</span>
+      </div>
+
+      <!-- Center Column: Prominent Timer -->
+      <div class="timer-box">
+        <div id="timer" class="timer-text">Loading Exam Countdown...</div>
+      </div>
+
+      <!-- Right Column: Navigation Tabs -->
+      <div class="nav-tabs">
+        <button class="tab-btn active" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus</button>
+        <button class="tab-btn" id="btn-sections" onclick="switchTab('sections')">Sections DB</button>
+      </div>
     </header>
 
-    <div class="nav-tabs">
-      <button class="tab-btn active" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus & Subjects</button>
-      <button class="tab-btn" id="btn-sections" onclick="switchTab('sections')">Sections Database</button>
-    </div>
-
     <main>
-      <!-- Syllabus Tab -->
+      <!-- Syllabus Section -->
       <section id="tab-syllabus">
         <div class="breadcrumb" id="breadcrumb">
-          <span>Subjects</span>
+          <span onclick="showSubjects()">Syllabus</span>
         </div>
 
-        <!-- Level 1: Subject Folders -->
+        <!-- Level 1: Subject Column -->
         <div id="view-subjects" class="grid">
-          <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf')">
+          <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf', true)">
             <h3>Company Law & Practice</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 2</p>
           </div>
-          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf')">
+          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence (JIGL)', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf', false)">
             <h3>Jurisprudence (JIGL)</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 1</p>
           </div>
-          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf')">
+          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business (SBILL)', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf', false)">
             <h3>Setting Up of Business (SBILL)</h3>
             <p style="color:var(--subtext)">Group 1 - Paper 3</p>
           </div>
-          <div class="card" onclick="openSubjectFolder('tax', 'Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf')">
+          <div class="card" onclick="openSubjectFolder('tax', 'Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf', false)">
             <h3>Tax Laws & Practice</h3>
             <p style="color:var(--subtext)">Group 2 - Paper 7</p>
           </div>
@@ -193,15 +228,19 @@
         <div id="view-folder" class="grid hidden">
           <div class="card" onclick="openStudyMaterial()">
             <h3>📖 Study Material</h3>
-            <p style="color:var(--subtext)">Open ICSI Official PDF Textbook</p>
+            <p style="color:var(--subtext)">Official ICSI PDF Textbook</p>
+          </div>
+          <div class="card">
+            <h3>❓ Previous Question Paper</h3>
+            <p style="color:var(--subtext)">Past Exam Papers & Answers</p>
           </div>
           <div class="card">
             <h3>📝 Revision Notes</h3>
             <p style="color:var(--subtext)">Chapter Summaries & Key Points</p>
           </div>
-          <div class="card">
-            <h3>❓ Past Year Questions (PYQ)</h3>
-            <p style="color:var(--subtext)">Exam Questions & Answers</p>
+          <div class="card hidden" id="card-company-laws" onclick="switchTab('sections')">
+            <h3>⚖️ Company Laws & Sections</h3>
+            <p style="color:var(--subtext)">Access Companies Act Sections Database</p>
           </div>
         </div>
 
@@ -217,7 +256,7 @@
 
       <!-- Sections Database Tab -->
       <section id="tab-sections" class="hidden">
-        <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or keyword..." onkeyup="filterSections()" style="margin-bottom:20px;">
+        <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or legal keyword..." onkeyup="filterSections()" style="margin-bottom:20px;">
         <div id="all-sections-container" class="grid"></div>
       </section>
     </main>
@@ -229,19 +268,21 @@
     let loadedSections = [];
     let activePdfUrl = "";
     let activeSubjectName = "";
+    let isCompanyLawActive = false;
 
     function startExamCountdown() {
       setInterval(() => {
         const now = new Date().getTime();
         const distance = examDate - now;
         if (distance < 0) {
-          document.getElementById("timer").innerHTML = "Exam Period Started";
+          document.getElementById("timer").innerHTML = "Dec 2026 Exam Period Started";
           return;
         }
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m`;
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("timer").innerHTML = `Dec 2026 Exam: ${days}d ${hours}h ${minutes}m ${seconds}s`;
       }, 1000);
     }
 
@@ -255,7 +296,7 @@
         renderSections(loadedSections);
       } catch (e) {
         console.error("Error loading sections:", e);
-        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Make sure the file is uploaded to your GitHub repository.</p>';
+        container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repo.</p>';
       }
     }
 
@@ -312,24 +353,32 @@
       }
     }
 
-    function openSubjectFolder(id, name, pdfUrl) {
+    function openSubjectFolder(id, name, pdfUrl, includesLaws) {
       activePdfUrl = pdfUrl;
       activeSubjectName = name;
+      isCompanyLawActive = includesLaws;
 
       document.getElementById('view-subjects').classList.add('hidden');
       document.getElementById('view-folder').classList.remove('hidden');
       document.getElementById('view-pdf-reader').classList.add('hidden');
 
+      if (includesLaws) {
+        document.getElementById('card-company-laws').classList.remove('hidden');
+      } else {
+        document.getElementById('card-company-laws').classList.add('hidden');
+      }
+
       document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Subjects</span> &gt; <span>${name}</span>
+        <span onclick="showSubjects()">Syllabus</span> &gt; <span>${name}</span>
       `;
     }
 
     function showSubjects() {
+      switchTab('syllabus');
       document.getElementById('view-subjects').classList.remove('hidden');
       document.getElementById('view-folder').classList.add('hidden');
       document.getElementById('view-pdf-reader').classList.add('hidden');
-      document.getElementById('breadcrumb').innerHTML = `<span>Subjects</span>`;
+      document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus</span>`;
     }
 
     function openStudyMaterial() {
@@ -339,8 +388,8 @@
       document.getElementById('pdf-frame').src = activePdfUrl;
 
       document.getElementById('breadcrumb').innerHTML = `
-        <span onclick="showSubjects()">Subjects</span> &gt; 
-        <span onclick="openSubjectFolder('', '${activeSubjectName}', '${activePdfUrl}')">${activeSubjectName}</span> &gt; 
+        <span onclick="showSubjects()">Syllabus</span> &gt; 
+        <span onclick="openSubjectFolder('', '${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
         <span>Study Material</span>
       `;
     }
