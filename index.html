@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICSI CS Executive Portal</title>
+  <title>ICSI CS Executive Master Portal</title>
   <style>
     :root {
       --bg: #090d16;
@@ -263,11 +263,11 @@
           <div class="subject-card" onclick="openSubjectDetail('company-law')">
             <div>
               <strong>Paper 2: Company Law &amp; Practice</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Full Portion, Act Rules &amp; All Sections</div>
+              <div style="font-size:0.8rem; color:var(--subtext);">Full Portion, Act Rules &amp; All Sections (Sec 1 to Sec 470)</div>
             </div>
             <span class="badge-grp">GROUP 1</span>
           </div>
-          <div class="subject-card" onclick="alert('JIGL module structure loading...')">
+          <div class="subject-card" onclick="alert('JIGL module loading...')">
             <div>
               <strong>Paper 1: Jurisprudence, Interpretation &amp; General Laws (JIGL)</strong>
               <div style="font-size:0.8rem; color:var(--subtext);">Constitution, CPC, CrPC, Limitation Act</div>
@@ -316,7 +316,7 @@
         </div>
       </div>
 
-      <!-- COMPANY LAW DETAILED BREAKDOWN (FULL PORTION + ALL SECTIONS) -->
+      <!-- COMPANY LAW DETAILED BREAKDOWN (ALL 29 CHAPTER SECTIONS) -->
       <div id="company-law-detail" style="display:none;">
         <button class="btn-action" style="margin-bottom:15px;" onclick="closeSubjectDetail()">← Back to All Subjects</button>
 
@@ -326,108 +326,215 @@
           <p><strong>Part II:</strong> Company Administration &amp; Meetings (40 Marks)</p>
         </div>
 
-        <!-- COMPREHENSIVE COMPANY LAW SECTIONS INDEX -->
+        <!-- COMPREHENSIVE COMPANY LAW SECTIONS DIRECTORY -->
         <div class="card">
-          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — Comprehensive Section Index</h3>
+          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — Full Chapter &amp; Section Directory</h3>
           
-          <!-- SECTION 1 & 2 -->
+          <!-- CHAPTER 1 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter I: Section 1 &amp; 2 — Short Title, Extent &amp; Definitions</span>
+              <span>Chapter I: Preliminary (Sec 1 – 2)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 1:</strong> Short title, commencement and application of Companies Act 2013.</div>
-              <div class="subsec"><strong>Section 2(20):</strong> Definition of 'Company' incorporated under this Act or previous law.</div>
-              <div class="subsec"><strong>Section 2(68):</strong> Definition of 'Private Company' (restricts transferability, max 200 members).</div>
-              <div class="subsec"><strong>Section 2(71):</strong> Definition of 'Public Company'.</div>
-              <div class="subsec"><strong>Section 2(62):</strong> Definition of 'One Person Company' (OPC).</div>
+              <div class="subsec"><strong>Section 1:</strong> Short title, extent, commencement and application.</div>
+              <div class="subsec"><strong>Section 2:</strong> Definitions (Sec 2(20) Company, Sec 2(68) Private Co, Sec 2(71) Public Co, Sec 2(62) OPC, Sec 2(46) Holding Co, Sec 2(87) Subsidiary Co).</div>
             </div>
           </div>
 
-          <!-- SECTIONS 3 TO 22 -->
+          <!-- CHAPTER 2 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter II: Sections 3 to 22 — Incorporation &amp; Prospectus</span>
+              <span>Chapter II: Incorporation of Company &amp; Matters Incidental (Sec 3 – 22)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 3:</strong> Formation of company for lawful purposes.</div>
-              <div class="subsec"><strong>Section 4:</strong> Memorandum of Association (MOA) clauses (Name, Registered Office, Objects, Liability, Capital).</div>
-              <div class="subsec"><strong>Section 5:</strong> Articles of Association (AOA) regulations for management.</div>
-              <div class="subsec"><strong>Section 12:</strong> Registered Office of Company (Verification within 30 days of incorporation).</div>
-              <div class="subsec"><strong>Section 13:</strong> Alteration of Memorandum of Association.</div>
+              <div class="subsec"><strong>Section 3:</strong> Formation of Company.</div>
+              <div class="subsec"><strong>Section 3A:</strong> Members severally liable in certain cases.</div>
+              <div class="subsec"><strong>Section 4:</strong> Memorandum of Association (MOA).</div>
+              <div class="subsec"><strong>Section 5:</strong> Articles of Association (AOA).</div>
+              <div class="subsec"><strong>Section 7:</strong> Incorporation of Company.</div>
+              <div class="subsec"><strong>Section 12:</strong> Registered Office of Company.</div>
+              <div class="subsec"><strong>Section 13:</strong> Alteration of Memorandum.</div>
+              <div class="subsec"><strong>Section 14:</strong> Alteration of Articles.</div>
             </div>
           </div>
 
-          <!-- SECTIONS 42 TO 72 -->
+          <!-- CHAPTER 3 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter IV: Sections 43 to 72 — Share Capital &amp; Debentures</span>
+              <span>Chapter III: Prospectus &amp; Allotment of Securities (Sec 23 – 42)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 43:</strong> Kinds of Share Capital (Equity shares with voting/DVR rights, Preference shares).</div>
-              <div class="subsec"><strong>Section 53:</strong> Prohibition on issue of shares at a discount.</div>
+              <div class="subsec"><strong>Section 23:</strong> Public offer and Private placement.</div>
+              <div class="subsec"><strong>Section 26:</strong> Matters to be stated in prospectus.</div>
+              <div class="subsec"><strong>Section 31:</strong> Shelf Prospectus.</div>
+              <div class="subsec"><strong>Section 32:</strong> Red Herring Prospectus.</div>
+              <div class="subsec"><strong>Section 42:</strong> Offer or invitation for subscription of securities on private placement.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 4 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter IV: Share Capital &amp; Debentures (Sec 43 – 72)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 43:</strong> Kinds of Share Capital.</div>
+              <div class="subsec"><strong>Section 48:</strong> Variation of shareholders' rights.</div>
+              <div class="subsec"><strong>Section 52:</strong> Application of premiums received on issue of shares.</div>
+              <div class="subsec"><strong>Section 53:</strong> Prohibition on issue of shares at discount.</div>
               <div class="subsec"><strong>Section 54:</strong> Issue of Sweat Equity Shares.</div>
-              <div class="subsec"><strong>Section 62:</strong> Further issue of share capital (Rights Issue, ESOP, Private Placement).</div>
-              <div class="subsec"><strong>Section 68:</strong> Power of company to buy-back its own securities.</div>
+              <div class="subsec"><strong>Section 55:</strong> Issue and redemption of preference shares.</div>
+              <div class="subsec"><strong>Section 62:</strong> Further issue of share capital (Rights issue / ESOP).</div>
+              <div class="subsec"><strong>Section 68:</strong> Power of company to purchase its own securities (Buy-back).</div>
+              <div class="subsec"><strong>Section 71:</strong> Debentures rules.</div>
             </div>
           </div>
 
-          <!-- SECTIONS 96 TO 122 -->
+          <!-- CHAPTER 5 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter VII: Sections 96 to 122 — Management &amp; General Meetings</span>
+              <span>Chapter V: Acceptance of Deposits by Companies (Sec 73 – 76A)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 96:</strong> Annual General Meeting (AGM) mandatory holding within 6 months from financial year end.</div>
+              <div class="subsec"><strong>Section 73:</strong> Prohibition on acceptance of deposits from public.</div>
+              <div class="subsec"><strong>Section 76:</strong> Acceptance of deposits from public by eligible companies.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 6 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter VI: Registration of Charges (Sec 77 – 87)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 77:</strong> Duty to register charges.</div>
+              <div class="subsec"><strong>Section 82:</strong> Company to report satisfaction of charge.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 7 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter VII: Management &amp; Administration (Sec 88 – 122)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 88:</strong> Register of members, etc.</div>
+              <div class="subsec"><strong>Section 92:</strong> Annual Return filing.</div>
+              <div class="subsec"><strong>Section 96:</strong> Annual General Meeting (AGM).</div>
               <div class="subsec"><strong>Section 100:</strong> Calling of Extra-Ordinary General Meeting (EGM).</div>
-              <div class="subsec"><strong>Section 101:</strong> Notice of meeting (Clear 21 days notice required).</div>
-              <div class="subsec"><strong>Section 103:</strong> Quorum for meetings (5 members for private; up to 30 for large public companies).</div>
-              <div class="subsec"><strong>Section 108:</strong> Voting through electronic means (e-voting).</div>
+              <div class="subsec"><strong>Section 101:</strong> Notice of Meeting.</div>
+              <div class="subsec"><strong>Section 103:</strong> Quorum for Meetings.</div>
+              <div class="subsec"><strong>Section 108:</strong> Voting through electronic means.</div>
+              <div class="subsec"><strong>Section 110:</strong> Postal Ballot.</div>
             </div>
           </div>
 
-          <!-- SECTIONS 135 & CSR -->
+          <!-- CHAPTER 8 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter IX: Section 135 — Corporate Social Responsibility (CSR)</span>
+              <span>Chapter VIII: Declaration &amp; Payment of Dividend (Sec 123 – 127)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <p>Mandatory for companies with Net Worth ≥ ₹500 Cr, Turnover ≥ ₹1000 Cr, or Net Profit ≥ ₹5 Cr.</p>
-              <div class="subsec"><strong>Section 135(1):</strong> Composition of CSR Committee (at least 1 independent director).</div>
-              <div class="subsec"><strong>Section 135(5):</strong> Mandatory spending of 2% of average net profits of preceding 3 financial years.</div>
+              <div class="subsec"><strong>Section 123:</strong> Declaration of dividend out of profits.</div>
+              <div class="subsec"><strong>Section 124:</strong> Unpaid Dividend Account &amp; IEPF transfer.</div>
             </div>
           </div>
 
-          <!-- SECTIONS 149 TO 172 -->
+          <!-- CHAPTER 9 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter XI: Sections 149 to 172 — Appointment &amp; Qualifications of Directors</span>
+              <span>Chapter IX: Accounts of Companies (Sec 128 – 138)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 149(1):</strong> Minimum 3 directors (Public), 2 (Private), 1 (OPC). Maximum 15 directors limit.</div>
-              <div class="subsec"><strong>Section 149(4):</strong> Minimum 1/3rd Independent Directors for listed public companies.</div>
-              <div class="subsec"><strong>Section 152:</strong> Appointment of Directors and DIN mandatory requirement.</div>
+              <div class="subsec"><strong>Section 128:</strong> Books of account to be kept by company.</div>
+              <div class="subsec"><strong>Section 129:</strong> Financial Statement.</div>
+              <div class="subsec"><strong>Section 134:</strong> Financial statement, Board's Report, etc.</div>
+              <div class="subsec"><strong>Section 135:</strong> Corporate Social Responsibility (CSR).</div>
+              <div class="subsec"><strong>Section 138:</strong> Internal Audit.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 10 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter X: Audit &amp; Auditors (Sec 139 – 148)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 139:</strong> Appointment of auditors.</div>
+              <div class="subsec"><strong>Section 141:</strong> Eligibility, qualifications and disqualifications of auditors.</div>
+              <div class="subsec"><strong>Section 143:</strong> Powers and duties of auditors and auditing standards.</div>
+              <div class="subsec"><strong>Section 148:</strong> Central Government to specify audit of items of cost.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 11 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter XI: Appointment &amp; Qualifications of Directors (Sec 149 – 172)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 149:</strong> Company to have Board of Directors (Independent / Woman Directors).</div>
+              <div class="subsec"><strong>Section 152:</strong> Appointment of Directors.</div>
               <div class="subsec"><strong>Section 164:</strong> Disqualifications for appointment of director.</div>
+              <div class="subsec"><strong>Section 165:</strong> Number of directorships (Maximum 20 companies, 10 public).</div>
             </div>
           </div>
 
-          <!-- SECTIONS 173 TO 195 -->
+          <!-- CHAPTER 12 -->
           <div class="sec-accordion">
             <div class="sec-header" onclick="toggleSec(this)">
-              <span>Chapter XII: Sections 173 to 195 — Meetings of Board &amp; Its Powers</span>
+              <span>Chapter XII: Meetings of Board &amp; Its Powers (Sec 173 – 195)</span>
               <span>+</span>
             </div>
             <div class="sec-content">
-              <div class="subsec"><strong>Section 173(1):</strong> First Board Meeting within 30 days of incorporation; minimum 4 board meetings per year.</div>
-              <div class="subsec"><strong>Section 177:</strong> Audit Committee constitution.</div>
-              <div class="subsec"><strong>Section 178:</strong> Nomination and Remuneration Committee (NRC) and Stakeholders Relationship Committee.</div>
-              <div class="subsec"><strong>Section 186:</strong> Loans and investments by company limits.</div>
+              <div class="subsec"><strong>Section 173:</strong> Meetings of Board.</div>
+              <div class="subsec"><strong>Section 177:</strong> Audit Committee.</div>
+              <div class="subsec"><strong>Section 178:</strong> Nomination and Remuneration Committee &amp; Stakeholders Relationship Committee.</div>
+              <div class="subsec"><strong>Section 180:</strong> Restrictions on powers of Board.</div>
+              <div class="subsec"><strong>Section 184:</strong> Disclosure of interest by director.</div>
+              <div class="subsec"><strong>Section 186:</strong> Loans and investment by company.</div>
+              <div class="subsec"><strong>Section 188:</strong> Related party transactions.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 13 -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapter XIII: Appointment &amp; Remuneration of Managerial Personnel (Sec 196 – 205)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 196:</strong> Appointment of Managing Director, Whole-time Director or Manager.</div>
+              <div class="subsec"><strong>Section 197:</strong> Overall maximum managerial remuneration &amp; managerial remuneration in case of absence or inadequacy of profits (Schedule V).</div>
+              <div class="subsec"><strong>Section 203:</strong> Appointment of Key Managerial Personnel (KMP - MD, CS, CFO).</div>
+              <div class="subsec"><strong>Section 204:</strong> Secretarial Audit for bigger companies.</div>
+            </div>
+          </div>
+
+          <!-- CHAPTER 14 TO 29 SUMMARY LIST -->
+          <div class="sec-accordion">
+            <div class="sec-header" onclick="toggleSec(this)">
+              <span>Chapters XIV to XXIX: Inspections, Compromises, Winding Up &amp; Penalties (Sec 206 – 470)</span>
+              <span>+</span>
+            </div>
+            <div class="sec-content">
+              <div class="subsec"><strong>Section 206–229 (Chapter XIV):</strong> Inspection, Inquiry and Investigation (SFIO).</div>
+              <div class="subsec"><strong>Section 230–240 (Chapter XV):</strong> Compromises, Arrangements and Amalgamations (Mergers).</div>
+              <div class="subsec"><strong>Section 241–246 (Chapter XVI):</strong> Prevention of Oppression and Mismanagement.</div>
+              <div class="subsec"><strong>Section 270–365 (Chapter XX):</strong> Winding Up of Companies.</div>
+              <div class="subsec"><strong>Section 407–434 (Chapter XXVII):</strong> National Company Law Tribunal (NCLT) &amp; Appellate Tribunal (NCLAT).</div>
+              <div class="subsec"><strong>Section 447 (Chapter XXIX):</strong> Punishment for Fraud.</div>
             </div>
           </div>
 
