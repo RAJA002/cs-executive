@@ -55,7 +55,6 @@
       border-radius: 6px;
     }
 
-    /* Top Header */
     header {
       background: var(--card-bg);
       border-bottom: 1px solid var(--border);
@@ -76,7 +75,6 @@
       cursor: pointer;
     }
 
-    /* Nav Bar */
     .nav-bar {
       display: flex;
       background: #1f2937;
@@ -99,10 +97,8 @@
       background: rgba(56, 189, 248, 0.05);
     }
 
-    /* Layout Wrapper */
     .wrapper { width: 90%; max-width: 850px; margin: 20px auto; display: none; }
 
-    /* Exam Countdown Timer Box */
     .countdown-card {
       background: linear-gradient(135deg, #1e1b4b, #111827);
       border: 1px solid #4338ca;
@@ -127,7 +123,6 @@
     .time-val { font-size: 1.6rem; font-weight: bold; color: var(--warning); }
     .time-lbl { font-size: 0.7rem; color: var(--subtext); }
 
-    /* Views & Cards */
     .view-section { display: none; }
     .view-section.active { display: block; }
     .card {
@@ -138,7 +133,6 @@
       margin-bottom: 15px;
     }
     
-    /* Subject List UI */
     .subject-card {
       background: #1f2937;
       border: 1px solid var(--border);
@@ -153,7 +147,6 @@
     .subject-card:hover { border-color: var(--accent); background: #374151; }
     .badge-grp { background: #374151; color: var(--accent); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
     
-    /* Accordion Sections */
     .sec-accordion {
       background: #1f2937;
       border: 1px solid var(--border);
@@ -180,12 +173,17 @@
       line-height: 1.5;
     }
     .subsec {
-      margin-left: 10px;
-      padding: 8px 10px;
-      border-left: 2px solid var(--accent);
-      margin-top: 8px;
+      margin-left: 5px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--accent);
+      margin-top: 10px;
       background: rgba(255,255,255,0.02);
-      border-radius: 0 4px 4px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .subsec-desc {
+      color: var(--subtext);
+      font-size: 0.88rem;
+      margin-top: 4px;
     }
 
     .search-input {
@@ -213,7 +211,6 @@
 </head>
 <body>
 
-  <!-- AUTH LOCK SCREEN -->
   <div id="lock-screen">
     <div class="lock-box">
       <h2 style="margin-top:0; color:var(--accent);">Private CS Access</h2>
@@ -223,7 +220,6 @@
     </div>
   </div>
 
-  <!-- TOP HEADER WITH ICSI LOGO AS HOME -->
   <header>
     <div class="portal-title">CS Executive Revision Portal</div>
     <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home Dashboard">
@@ -231,7 +227,6 @@
     </div>
   </header>
 
-  <!-- TOP NAVIGATION COLUMNS -->
   <div class="nav-bar">
     <button class="nav-btn active" id="btn-home" onclick="switchTab('home')">Dashboard</button>
     <button class="nav-btn" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus &amp; Sections</button>
@@ -239,10 +234,8 @@
     <button class="nav-btn" id="btn-pyq" onclick="switchTab('pyq')">Past Papers (PYQ)</button>
   </div>
 
-  <!-- MAIN CONTAINER -->
   <div class="wrapper" id="app-wrapper">
     
-    <!-- EXAM COUNTDOWN TIMER -->
     <div class="countdown-card">
       <div class="countdown-title">Target Exam Date: December 2026 ICSI Session</div>
       <div class="countdown-clock">
@@ -253,7 +246,6 @@
       </div>
     </div>
 
-    <!-- HOME DASHBOARD VIEW -->
     <div id="view-home" class="view-section active">
       <div class="card">
         <h3>Welcome to CS Executive Hub</h3>
@@ -261,16 +253,14 @@
       </div>
     </div>
 
-    <!-- SYLLABUS VIEW: ALL SUBJECTS -->
     <div id="view-syllabus" class="view-section">
-      <!-- SUBJECT LIST MAIN SCREEN -->
       <div id="subject-list-container">
         <div class="card">
           <h3 style="color:var(--accent); margin-top:0;">Group 1 Papers</h3>
           <div class="subject-card" onclick="openSubjectDetail('company-law')">
             <div>
               <strong>Paper 2: Company Law &amp; Practice</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Complete Act: All 470 Sections &amp; Chapters</div>
+              <div style="font-size:0.8rem; color:var(--subtext);">Database Driven: All Sections &amp; Statutory Text</div>
             </div>
             <span class="badge-grp">GROUP 1</span>
           </div>
@@ -323,7 +313,6 @@
         </div>
       </div>
 
-      <!-- COMPANY LAW DETAILED BREAKDOWN (COMPLETE 470 SECTIONS GENERATOR) -->
       <div id="company-law-detail" style="display:none;">
         <button class="btn-action" style="margin-bottom:15px;" onclick="closeSubjectDetail()">← Back to All Subjects</button>
 
@@ -333,18 +322,16 @@
           <p><strong>Part II:</strong> Company Administration &amp; Meetings (40 Marks)</p>
         </div>
 
-        <!-- SEARCH + ALL 470 SECTIONS DIRECTORY -->
         <div class="card">
-          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — All Sections Index (Sec 1 to Sec 470)</h3>
-          <input type="text" id="sectionSearch" class="search-input" placeholder="🔍 Search section number or title (e.g., 72, 74, 75, Buyback, AGM)..." onkeyup="filterSections()">
+          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — Comprehensive Sections Database</h3>
+          <input type="text" id="sectionSearch" class="search-input" placeholder="🔍 Search by section (e.g., 72, 74, 75, 135) or topic..." onkeyup="filterSections()">
           
-          <div id="all-sections-container"></div>
+          <div id="all-sections-container">Loading section database...</div>
         </div>
       </div>
 
     </div>
 
-    <!-- PRACTICE QUIZ COLUMN -->
     <div id="view-quiz" class="view-section">
       <div class="card">
         <h3>Section Practice Quiz</h3>
@@ -354,7 +341,6 @@
       </div>
     </div>
 
-    <!-- PAST YEAR PAPERS (PYQ) VIEW -->
     <div id="view-pyq" class="view-section">
       <div class="card">
         <h3>Previous Year Question Papers</h3>
@@ -370,102 +356,45 @@
   </div>
 
 <script>
-  const SECRET_PIN = "2026";
+  const SECRET_PIN = "1432";
   const examDate = new Date("December 21, 2026 09:00:00").getTime();
+  let loadedSections = [];
 
-  // Known specific names mapping for key sections
-  const keySectionTitles = {
-    1: "Short title, extent, commencement and application",
-    2: "Definitions",
-    3: "Formation of company",
-    3A: "Members severally liable in certain cases",
-    4: "Memorandum of association",
-    5: "Articles of association",
-    7: "Incorporation of company",
-    12: "Registered office of company",
-    13: "Alteration of memorandum",
-    14: "Alteration of articles",
-    23: "Public offer and private placement",
-    42: "Offer or invitation for subscription of securities on private placement",
-    43: "Kinds of share capital",
-    53: "Prohibition on issue of shares at discount",
-    54: "Issue of sweat equity shares",
-    62: "Further issue of share capital",
-    68: "Power of company to purchase its own securities (Buy-back)",
-    71: "Debentures",
-    72: "Power to nominate securities holders",
-    73: "Prohibition on acceptance of deposits from public",
-    74: "Repayment of deposits, etc., accepted before commencement of this Act",
-    75: "Damages for fraud in deposit acceptance",
-    76: "Acceptance of deposits from public by eligible companies",
-    77: "Duty to register charges",
-    88: "Register of members",
-    92: "Annual return",
-    96: "Annual general meeting",
-    100: "Calling of extraordinary general meeting",
-    101: "Notice of meeting",
-    103: "Quorum for meetings",
-    108: "Voting through electronic means",
-    123: "Declaration of dividend",
-    135: "Corporate Social Responsibility (CSR)",
-    139: "Appointment of auditors",
-    149: "Company to have Board of Directors",
-    173: "Meetings of Board",
-    186: "Loans and investment by company",
-    188: "Related party transactions",
-    203: "Appointment of Key Managerial Personnel (KMP)",
-    447: "Punishment for fraud"
-  };
+  async function loadSectionsFromJSON() {
+    try {
+      const res = await fetch('sections.json');
+      loadedSections = await res.json();
+      renderSections(loadedSections);
+    } catch (e) {
+      document.getElementById('all-sections-container').innerHTML = '<p style="color:var(--danger)">Error loading sections.json database file.</p>';
+    }
+  }
 
-  // 29 Official Chapters Range Config
-  const chapters = [
-    { title: "Chapter I: Preliminary", start: 1, end: 2 },
-    { title: "Chapter II: Incorporation of Company & Incidental Matters", start: 3, end: 22 },
-    { title: "Chapter III: Prospectus & Allotment of Securities", start: 23, end: 42 },
-    { title: "Chapter IV: Share Capital & Debentures", start: 43, end: 72 },
-    { title: "Chapter V: Acceptance of Deposits by Companies", start: 73, end: 76 },
-    { title: "Chapter VI: Registration of Charges", start: 77, end: 87 },
-    { title: "Chapter VII: Management & Administration", start: 88, end: 122 },
-    { title: "Chapter VIII: Declaration & Payment of Dividend", start: 123, end: 127 },
-    { title: "Chapter IX: Accounts of Companies", start: 128, end: 138 },
-    { title: "Chapter X: Audit & Auditors", start: 139, end: 148 },
-    { title: "Chapter XI: Appointment & Qualifications of Directors", start: 149, end: 172 },
-    { title: "Chapter XII: Meetings of Board & Its Powers", start: 173, end: 195 },
-    { title: "Chapter XIII: Appointment & Remuneration of Managerial Personnel", start: 196, end: 205 },
-    { title: "Chapter XIV: Inspection, Inquiry & Investigation", start: 206, end: 229 },
-    { title: "Chapter XV: Compromises, Arrangements & Amalgamations", start: 230, end: 240 },
-    { title: "Chapter XVI: Prevention of Oppression & Mismanagement", start: 241, end: 246 },
-    { title: "Chapter XVII: Registered Valuers", start: 247, end: 247 },
-    { title: "Chapter XVIII: Removal of Names of Companies from Register", start: 248, end: 252 },
-    { title: "Chapter XIX: Revival & Rehabilitation of Sick Companies", start: 253, end: 269 },
-    { title: "Chapter XX: Winding Up", start: 270, end: 365 },
-    { title: "Chapter XXI: Companies Authorized to Register Under This Act", start: 366, end: 378 },
-    { title: "Chapter XXII: Companies Incorporated Outside India", start: 379, end: 393 },
-    { title: "Chapter XXIII: Government Companies", start: 394, end: 395 },
-    { title: "Chapter XXIV: Registration Offices and Fees", start: 396, end: 404 },
-    { title: "Chapter XXV: Companies Laid Down for Nidhi Companies", start: 406, end: 406 },
-    { title: "Chapter XXVI: National Company Law Tribunal & Appellate Tribunal", start: 407, end: 434 },
-    { title: "Chapter XXVII: Special Courts", start: 435, end: 446 },
-    { title: "Chapter XXVIII: Complex & Miscellaneous Provisions", start: 447, end: 470 }
-  ];
-
-  function buildSections() {
+  function renderSections(data) {
     const container = document.getElementById('all-sections-container');
     container.innerHTML = '';
 
-    chapters.forEach(ch => {
+    const grouped = {};
+    data.forEach(item => {
+      if (!grouped[item.chapter]) grouped[item.chapter] = [];
+      grouped[item.chapter].push(item);
+    });
+
+    for (const [chapterTitle, items] of Object.entries(grouped)) {
       let secHTML = '';
-      for (let s = ch.start; s <= ch.end; s++) {
-        const title = keySectionTitles[s] ? keySectionTitles[s] : `Statutory Provision & Compliance (Section ${s})`;
-        secHTML += `<div class="subsec section-item" data-sec="${s}" data-title="${title}">
-          <strong>Section ${s}:</strong> ${title}
-        </div>`;
-      }
+      items.forEach(sec => {
+        secHTML += `
+          <div class="subsec section-item" data-sec="${sec.id}">
+            <strong>Section ${sec.id}: ${sec.title}</strong>
+            <div class="subsec-desc">${sec.content}</div>
+          </div>
+        `;
+      });
 
       const accordionHTML = `
         <div class="sec-accordion">
           <div class="sec-header" onclick="toggleSec(this)">
-            <span>${ch.title} (Sec ${ch.start} – ${ch.end})</span>
+            <span>${chapterTitle}</span>
             <span>+</span>
           </div>
           <div class="sec-content">
@@ -474,7 +403,7 @@
         </div>
       `;
       container.innerHTML += accordionHTML;
-    });
+    }
   }
 
   function filterSections() {
@@ -513,7 +442,7 @@
       document.getElementById('lock-screen').style.display = 'none';
       document.getElementById('app-wrapper').style.display = 'block';
       startExamCountdown();
-      buildSections();
+      loadSectionsFromJSON();
     } else {
       alert("Incorrect PIN code.");
     }
