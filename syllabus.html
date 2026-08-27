@@ -13,6 +13,7 @@
       --text: #f8fafc;
       --subtext: #94a3b8;
       --border: #334155;
+      --danger: #ef4444;
     }
 
     body {
@@ -56,6 +57,8 @@
       padding: 8px 20px;
       border-radius: 6px;
       font-weight: bold;
+      border: none;
+      cursor: pointer;
     }
 
     .timer-text {
@@ -99,6 +102,17 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #fff;
+    }
+
+    input[type="text"] {
+      width: 95%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #090d16;
+      color: #fff;
+      font-size: 1rem;
     }
 
     .hidden { display: none !important; }
@@ -159,19 +173,27 @@
         <h3>📝 Revision Notes</h3>
         <p style="color:var(--subtext)">Summaries & Highlights</p>
       </div>
-      <div class="card hidden" id="card-company-laws">
-        <h3>⚖️ Companies Act Laws</h3>
-        <p style="color:var(--subtext)">Sections & Database</p>
+      <!-- Companies Act Sections (Only visible for Company Law) -->
+      <div class="card hidden" id="card-company-laws" onclick="openCompanyLawsDB()">
+        <h3>⚖️ Companies Act Sections & Laws</h3>
+        <p style="color:var(--subtext)">Access Companies Act Database</p>
       </div>
     </div>
 
-    <!-- Step 3: PDF Viewer -->
+    <!-- Step 3A: PDF Viewer -->
     <div id="view-pdf" class="hidden">
       <div style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
         <h3 id="pdf-title" style="margin:0">Study Material</h3>
         <button class="nav-btn" onclick="openExternalPdf()">Open PDF ↗</button>
       </div>
       <iframe id="pdf-frame" src=""></iframe>
+    </div>
+
+    <!-- Step 3B: Companies Act Sections Database View -->
+    <div id="view-sections-db" class="hidden">
+      <h3>Companies Act Sections & Laws</h3>
+      <input type="text" id="sec-search" placeholder="Search section number (e.g. 22) or legal keyword..." onkeyup="filterSections()">
+      <div id="all-sections-container" class="grid"></div>
     </div>
   </main>
 
@@ -180,6 +202,7 @@
     let activePdfUrl = "";
     let activeSubjectName = "";
     let isCompanyLawActive = false;
+    let loadedSections = [];
 
     function startExamCountdown() {
       setInterval(() => {
@@ -205,6 +228,7 @@
       document.getElementById('view-subjects').classList.add('hidden');
       document.getElementById('view-folder').classList.remove('hidden');
       document.getElementById('view-pdf').classList.add('hidden');
+      document.getElementById('view-sections-db').classList.add('hidden');
 
       if (includesLaws) {
         document.getElementById('card-company-laws').classList.remove('hidden');
@@ -221,6 +245,7 @@
       document.getElementById('view-subjects').classList.remove('hidden');
       document.getElementById('view-folder').classList.add('hidden');
       document.getElementById('view-pdf').classList.add('hidden');
+      document.getElementById('view-sections-db').classList.add('hidden');
       document.getElementById('breadcrumb').innerHTML = `<span onclick="showSubjects()">Syllabus</span>`;
     }
 
@@ -235,6 +260,56 @@
         <span onclick="openSubjectFolder('${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
         <span>Study Material</span>
       `;
+    }
+
+    async function openCompanyLawsDB() {
+      document.getElementById('view-folder').classList.add('hidden');
+      document.getElementById('view-sections-db').classList.remove('hidden');
+
+      document.getElementById('breadcrumb').innerHTML = `
+        <span onclick="showSubjects()">Syllabus</span> &gt; 
+        <span onclick="openSubjectFolder('${activeSubjectName}', '${activePdfUrl}', ${isCompanyLawActive})">${activeSubjectName}</span> &gt; 
+        <span>Companies Act Sections</span>
+      `;
+
+      if (loadedSections.length === 0) {
+        const container = document.getElementById('all-sections-container');
+        try {
+          const res = await fetch('sections.json');
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          loadedSections = await res.json();
+          renderSections(loadedSections);
+        } catch (e) {
+          console.error("Error loading sections:", e);
+          container.innerHTML = '<p style="color:var(--danger)">Could not load sections.json. Ensure the file is present in your repository.</p>';
+        }
+      }
+    }
+
+    function renderSections(sections) {
+      const container = document.getElementById('all-sections-container');
+      if (sections.length === 0) {
+        container.innerHTML = '<p style="color:var(--subtext)">No matching sections found.</p>';
+        return;
+      }
+      container.innerHTML = sections.map(s => `
+        <div class="card" style="cursor:default;">
+          <h4 style="margin:0; color:var(--primary)">Section ${s.id}: ${s.title}</h4>
+          <small style="color:var(--subtext)">${s.chapter}</small>
+          <p style="font-size:0.9rem; margin-top:8px; white-space: pre-line;">${s.content}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterSections() {
+      const query = document.getElementById('sec-search').value.toLowerCase().trim();
+      const filtered = loadedSections.filter(sec => 
+        sec.id.toString().includes(query) ||
+        sec.title.toLowerCase().includes(query) ||
+        sec.chapter.toLowerCase().includes(query) ||
+        sec.content.toLowerCase().includes(query)
+      );
+      renderSections(filtered);
     }
 
     function openExternalPdf() {
