@@ -6,490 +6,309 @@
   <title>ICSI CS Executive Master Portal</title>
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #111827;
-      --accent: #38bdf8;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --success: #10b981;
-      --text: #f9fafc;
-      --subtext: #9ca3af;
-      --border: #1f2937;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+      --border: #334155;
     }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
       margin: 0;
-      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
     }
-    
+
     /* Lock Screen */
     #lock-screen {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--bg);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 999;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
     }
-    .lock-box {
+
+    .pin-box {
       background: var(--card-bg);
-      border: 1px solid var(--border);
       padding: 30px;
       border-radius: 12px;
-      text-align: center;
-      max-width: 350px;
-      width: 90%;
-    }
-    .pin-input {
-      width: 80%;
-      padding: 12px;
-      margin: 15px 0;
-      font-size: 1.2rem;
-      text-align: center;
-      background: #1f2937;
       border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-    }
-
-    header {
-      background: var(--card-bg);
-      border-bottom: 1px solid var(--border);
-      padding: 15px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .portal-title { font-size: 1.2rem; font-weight: bold; color: var(--accent); }
-    .icsi-badge {
-      background: #1e3a8a;
-      color: #fff;
-      font-weight: bold;
-      font-size: 0.95rem;
-      padding: 6px 14px;
-      border-radius: 6px;
-      border: 1px solid var(--accent);
-      cursor: pointer;
-    }
-
-    .nav-bar {
-      display: flex;
-      background: #1f2937;
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-btn {
-      flex: 1;
-      padding: 14px;
-      text-align: center;
-      background: transparent;
-      border: none;
-      color: var(--subtext);
-      font-weight: 600;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-    }
-    .nav-btn.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-      background: rgba(56, 189, 248, 0.05);
-    }
-
-    .wrapper { width: 90%; max-width: 850px; margin: 20px auto; display: none; }
-
-    .countdown-card {
-      background: linear-gradient(135deg, #1e1b4b, #111827);
-      border: 1px solid #4338ca;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .countdown-title { font-size: 0.85rem; color: var(--subtext); text-transform: uppercase; letter-spacing: 0.05em; }
-    .countdown-clock {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 10px;
-    }
-    .time-unit {
-      background: rgba(0,0,0,0.4);
-      padding: 10px 15px;
-      border-radius: 8px;
-      min-width: 50px;
-    }
-    .time-val { font-size: 1.6rem; font-weight: bold; color: var(--warning); }
-    .time-lbl { font-size: 0.7rem; color: var(--subtext); }
-
-    .view-section { display: none; }
-    .view-section.active { display: block; }
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
-    
-    .subject-card {
-      background: #1f2937;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 14px 18px;
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-    .subject-card:hover { border-color: var(--accent); background: #374151; }
-    .badge-grp { background: #374151; color: var(--accent); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-    
-    .sec-accordion {
-      background: #1f2937;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-    .sec-header {
-      padding: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--accent);
-    }
-    .sec-header:hover { background: #374151; }
-    .sec-content {
-      display: none;
-      padding: 15px;
-      background: #111827;
-      border-top: 1px solid var(--border);
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .subsec {
-      margin-left: 5px;
-      padding: 10px 12px;
-      border-left: 3px solid var(--accent);
-      margin-top: 10px;
-      background: rgba(255,255,255,0.02);
-      border-radius: 0 6px 6px 0;
-    }
-    .subsec-desc {
-      color: var(--subtext);
-      font-size: 0.88rem;
-      margin-top: 4px;
-    }
-
-    .search-input {
       width: 100%;
-      padding: 12px;
-      box-sizing: border-box;
-      background: #1f2937;
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-      margin-bottom: 15px;
-      font-size: 1rem;
+      max-width: 320px;
     }
 
-    .btn-action {
+    input[type="password"] {
+      width: 80%;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #090d16;
+      color: #fff;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    button {
       background: var(--accent);
-      color: #000;
-      font-weight: bold;
+      color: white;
       border: none;
       padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
     }
+
+    button:hover { background: var(--accent-hover); }
+
+    /* Main App Layout */
+    header {
+      background: var(--card-bg);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px;
+      background: #141e33;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--subtext);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      color: var(--subtext);
+    }
+
+    .breadcrumb span { cursor: pointer; color: var(--accent); }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
+  <!-- Lock Screen -->
   <div id="lock-screen">
-    <div class="lock-box">
-      <h2 style="margin-top:0; color:var(--accent);">Private CS Access</h2>
-      <p style="color:var(--subtext); font-size:0.9rem;">Enter Passcode to unlock</p>
-      <input type="password" id="pin-entry" class="pin-input" placeholder="••••" maxlength="6">
-      <button class="btn-action" style="width:100%;" onclick="unlockPortal()">Unlock Portal</button>
+    <div class="pin-box">
+      <h2>ICSI CS Executive Portal</h2>
+      <p style="color:var(--subtext)">Enter PIN to unlock</p>
+      <input type="password" id="pin-entry" placeholder="****" />
+      <br>
+      <button onclick="unlockPortal()">Unlock Portal</button>
     </div>
   </div>
 
-  <header>
-    <div class="portal-title">CS Executive Revision Portal</div>
-    <div class="icsi-logo" onclick="switchTab('home')" title="Click for Home Dashboard">
-      <div class="icsi-badge">ICSI 🏛️</div>
-    </div>
-  </header>
+  <!-- Main Portal -->
+  <div id="app-wrapper" class="hidden">
+    <header>
+      <h2 style="margin:0">CS Executive Hub</h2>
+      <div id="timer" style="color:var(--subtext)">Countdown: Dec 2026 Session</div>
+    </header>
 
-  <div class="nav-bar">
-    <button class="nav-btn active" id="btn-home" onclick="switchTab('home')">Dashboard</button>
-    <button class="nav-btn" id="btn-syllabus" onclick="switchTab('syllabus')">Syllabus &amp; Sections</button>
-    <button class="nav-btn" id="btn-quiz" onclick="switchTab('quiz')">Practice Quiz</button>
-    <button class="nav-btn" id="btn-pyq" onclick="switchTab('pyq')">Past Papers (PYQ)</button>
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('syllabus')">Syllabus & Subjects</button>
+      <button class="tab-btn" onclick="switchTab('sections')">Sections Database</button>
+    </div>
+
+    <main>
+      <!-- Syllabus Folder View -->
+      <section id="tab-syllabus">
+        <div class="breadcrumb" id="breadcrumb">
+          <span>Subjects</span>
+        </div>
+
+        <!-- 1. Subject Grid Level -->
+        <div id="view-subjects" class="grid">
+          <div class="card" onclick="openSubjectFolder('company-law', 'Company Law & Practice', 'https://www.icsi.edu/media/webmodules/Academics/Company_Law_Practices.pdf')">
+            <h3>Company Law & Practice</h3>
+            <p style="color:var(--subtext)">Group 1 - Paper 2</p>
+          </div>
+          <div class="card" onclick="openSubjectFolder('jigl', 'Jurisprudence, Interpretation & General Laws', 'https://www.icsi.edu/media/webmodules/Academics/JIGL7454845410012025.pdf')">
+            <h3>Jurisprudence (JIGL)</h3>
+            <p style="color:var(--subtext)">Group 1 - Paper 1</p>
+          </div>
+          <div class="card" onclick="openSubjectFolder('sbill', 'Setting Up of Business, Industrial & Labour Laws', 'https://www.icsi.edu/media/webmodules/Academics/SBILL_10012025545454.pdf')">
+            <h3>Setting Up of Business (SBILL)</h3>
+            <p style="color:var(--subtext)">Group 1 - Paper 3</p>
+          </div>
+          <div class="card" onclick="openSubjectFolder('tax', 'Tax Laws & Practice', 'https://www.icsi.edu/media/webmodules/Final_Book_Tax_Laws_&_Practice.pdf')">
+            <h3>Tax Laws & Practice</h3>
+            <p style="color:var(--subtext)">Group 2 - Paper 7</p>
+          </div>
+        </div>
+
+        <!-- 2. Inside Subject Folder View -->
+        <div id="view-folder" class="grid hidden">
+          <div class="card" onclick="openStudyMaterial()">
+            <h3>📖 Study Material (PDF Module)</h3>
+            <p style="color:var(--subtext)">Click to view full official ICSI text book</p>
+          </div>
+          <div class="card">
+            <h3>📝 Chapter Notes</h3>
+            <p style="color:var(--subtext)">Summary & Revision Notes</p>
+          </div>
+          <div class="card">
+            <h3>❓ Past Year Questions (PYQ)</h3>
+            <p style="color:var(--subtext)">Exam questions & suggested answers</p>
+          </div>
+        </div>
+
+        <!-- 3. PDF Reader View -->
+        <div id="view-pdf-reader" class="hidden">
+          <div style="margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+            <h3 id="pdf-title" style="margin:0">Official Study Material</h3>
+            <button onclick="openExternalPdf()">Open PDF in Full Screen ↗</button>
+          </div>
+          <iframe id="pdf-frame" src=""></iframe>
+        </div>
+      </section>
+
+      <!-- Sections Database View -->
+      <section id="tab-sections" class="hidden">
+        <input type="text" id="sec-search" placeholder="Search Section Number (e.g. 22)..." onkeyup="filterSections()" style="width:100%; padding:12px; background:var(--card-bg); border:1px solid var(--border); color:#fff; border-radius:6px; margin-bottom:15px;">
+        <div id="sections-list" class="grid"></div>
+      </section>
+    </main>
   </div>
 
-  <div class="wrapper" id="app-wrapper">
-    
-    <div class="countdown-card">
-      <div class="countdown-title">Target Exam Date: December 2026 ICSI Session</div>
-      <div class="countdown-clock">
-        <div class="time-unit"><div class="time-val" id="timer-days">00</div><div class="time-lbl">DAYS</div></div>
-        <div class="time-unit"><div class="time-val" id="timer-hours">00</div><div class="time-lbl">HOURS</div></div>
-        <div class="time-unit"><div class="time-val" id="timer-mins">00</div><div class="time-lbl">MINS</div></div>
-        <div class="time-unit"><div class="time-val" id="timer-secs">00</div><div class="time-lbl">SECS</div></div>
-      </div>
-    </div>
+  <script>
+    const SECRET_PIN = "2026";
+    let activePdfUrl = "";
+    let activeSubjectName = "";
 
-    <div id="view-home" class="view-section active">
-      <div class="card">
-        <h3>Welcome to CS Executive Hub</h3>
-        <p style="color: var(--subtext);">Select any paper from Syllabus to view full portion details, Act provisions, and section breakdowns.</p>
-      </div>
-    </div>
-
-    <div id="view-syllabus" class="view-section">
-      <div id="subject-list-container">
-        <div class="card">
-          <h3 style="color:var(--accent); margin-top:0;">Group 1 Papers</h3>
-          <div class="subject-card" onclick="openSubjectDetail('company-law')">
-            <div>
-              <strong>Paper 2: Company Law &amp; Practice</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Database Driven: All Sections &amp; Statutory Text</div>
-            </div>
-            <span class="badge-grp">GROUP 1</span>
-          </div>
-          <div class="subject-card" onclick="alert('JIGL module loading...')">
-            <div>
-              <strong>Paper 1: Jurisprudence, Interpretation &amp; General Laws (JIGL)</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Constitution, CPC, CrPC, Limitation Act</div>
-            </div>
-            <span class="badge-grp">GROUP 1</span>
-          </div>
-          <div class="subject-card" onclick="alert('SBILL module loading...')">
-            <div>
-              <strong>Paper 3: Setting Up of Business, Industrial &amp; Labour Laws</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Business Licenses, Registrations &amp; Labour Codes</div>
-            </div>
-            <span class="badge-grp">GROUP 1</span>
-          </div>
-          <div class="subject-card" onclick="alert('CAFM module loading...')">
-            <div>
-              <strong>Paper 4: Corporate Accounting &amp; Financial Management</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Financial Statements, Accounting Standards &amp; FM</div>
-            </div>
-            <span class="badge-grp">GROUP 1</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3 style="color:var(--accent); margin-top:0;">Group 2 Papers</h3>
-          <div class="subject-card" onclick="alert('CMSL module loading...')">
-            <div>
-              <strong>Paper 5: Capital Market &amp; Securities Laws (CMSL)</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">SEBI Regulations, ICR, Takeover Code</div>
-            </div>
-            <span class="badge-grp">GROUP 2</span>
-          </div>
-          <div class="subject-card" onclick="alert('ECIPL module loading...')">
-            <div>
-              <strong>Paper 6: Economic, Commercial &amp; Intellectual Property Laws</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">FEMA, Competition Act, IP Rights</div>
-            </div>
-            <span class="badge-grp">GROUP 2</span>
-          </div>
-          <div class="subject-card" onclick="alert('Tax Laws module loading...')">
-            <div>
-              <strong>Paper 7: Tax Laws &amp; Practice</strong>
-              <div style="font-size:0.8rem; color:var(--subtext);">Direct Tax (Income Tax) &amp; Indirect Tax (GST)</div>
-            </div>
-            <span class="badge-grp">GROUP 2</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="company-law-detail" style="display:none;">
-        <button class="btn-action" style="margin-bottom:15px;" onclick="closeSubjectDetail()">← Back to All Subjects</button>
-
-        <div class="card">
-          <h2 style="color:var(--accent); margin-top:0;">Company Law &amp; Practice (100 Marks)</h2>
-          <p><strong>Part I:</strong> Company Law Principles &amp; Concepts (60 Marks)</p>
-          <p><strong>Part II:</strong> Company Administration &amp; Meetings (40 Marks)</p>
-        </div>
-
-        <div class="card">
-          <h3 style="color:var(--accent); margin-top:0;">Companies Act, 2013 — Comprehensive Sections Database</h3>
-          <input type="text" id="sectionSearch" class="search-input" placeholder="🔍 Search by section (e.g., 72, 74, 75, 135) or topic..." onkeyup="filterSections()">
-          
-          <div id="all-sections-container">Loading section database...</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div id="view-quiz" class="view-section">
-      <div class="card">
-        <h3>Section Practice Quiz</h3>
-        <p style="color: var(--subtext);">Test section recall and compliance rules under exam conditions.</p>
-        <p><strong>Company Law Question:</strong> Under Section 135 of the Companies Act 2013, what percentage of average net profit must be spent on CSR?</p>
-        <button class="btn-action" onclick="alert('Correct Answer: 2%')">Show Answer</button>
-      </div>
-    </div>
-
-    <div id="view-pyq" class="view-section">
-      <div class="card">
-        <h3>Previous Year Question Papers</h3>
-        <p style="color: var(--subtext);">Download &amp; practice official ICSI past year exam papers.</p>
-        <ul>
-          <li>📄 Company Law — June 2025 Paper</li>
-          <li>📄 Tax Laws &amp; Practice — December 2024 Paper</li>
-          <li>📄 JIGL — June 2024 Paper</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-
-<script>
-  const SECRET_PIN = "1432";
-  const examDate = new Date("December 21, 2026 09:00:00").getTime();
-  let loadedSections = [];
-
-  async function loadSectionsFromJSON() {
-    try {
-      const res = await fetch('sections.json');
-      loadedSections = await res.json();
-      renderSections(loadedSections);
-    } catch (e) {
-      document.getElementById('all-sections-container').innerHTML = '<p style="color:var(--danger)">Error loading sections.json database file.</p>';
-    }
-  }
-
-  function renderSections(data) {
-    const container = document.getElementById('all-sections-container');
-    container.innerHTML = '';
-
-    const grouped = {};
-    data.forEach(item => {
-      if (!grouped[item.chapter]) grouped[item.chapter] = [];
-      grouped[item.chapter].push(item);
-    });
-
-    for (const [chapterTitle, items] of Object.entries(grouped)) {
-      let secHTML = '';
-      items.forEach(sec => {
-        secHTML += `
-          <div class="subsec section-item" data-sec="${sec.id}">
-            <strong>Section ${sec.id}: ${sec.title}</strong>
-            <div class="subsec-desc">${sec.content}</div>
-          </div>
-        `;
-      });
-
-      const accordionHTML = `
-        <div class="sec-accordion">
-          <div class="sec-header" onclick="toggleSec(this)">
-            <span>${chapterTitle}</span>
-            <span>+</span>
-          </div>
-          <div class="sec-content">
-            ${secHTML}
-          </div>
-        </div>
-      `;
-      container.innerHTML += accordionHTML;
-    }
-  }
-
-  function filterSections() {
-    const query = document.getElementById('sectionSearch').value.toLowerCase();
-    const accordions = document.querySelectorAll('.sec-accordion');
-
-    accordions.forEach(acc => {
-      const items = acc.querySelectorAll('.section-item');
-      let matchFound = false;
-
-      items.forEach(item => {
-        const text = item.innerText.toLowerCase();
-        if (text.includes(query)) {
-          item.style.display = 'block';
-          matchFound = true;
-        } else {
-          item.style.display = 'none';
-        }
-      });
-
-      if (matchFound) {
-        acc.style.display = 'block';
-        if (query.trim() !== '') {
-          acc.querySelector('.sec-content').style.display = 'block';
-          acc.querySelector('.sec-header span:last-child').innerText = '−';
-        }
+    function unlockPortal() {
+      const pin = document.getElementById('pin-entry').value;
+      if (pin === SECRET_PIN) {
+        document.getElementById('lock-screen').classList.add('hidden');
+        document.getElementById('app-wrapper').classList.remove('hidden');
       } else {
-        acc.style.display = query.trim() === '' ? 'block' : 'none';
+        alert("Incorrect PIN");
       }
-    });
-  }
-
-  function unlockPortal() {
-    const input = document.getElementById('pin-entry').value;
-    if (input === SECRET_PIN) {
-      document.getElementById('lock-screen').style.display = 'none';
-      document.getElementById('app-wrapper').style.display = 'block';
-      startExamCountdown();
-      loadSectionsFromJSON();
-    } else {
-      alert("Incorrect PIN code.");
     }
-  }
 
-  function startExamCountdown() {
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = examDate - now;
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-syllabus').classList.add('hidden');
+      document.getElementById('tab-sections').classList.add('hidden');
 
-      if (distance > 0) {
-        document.getElementById('timer-days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-        document.getElementById('timer-hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('timer-mins').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        document.getElementById('timer-secs').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+      if (tab === 'syllabus') {
+        document.getElementById('tab-syllabus').classList.remove('hidden');
+        event.target.classList.add('active');
+      } else {
+        document.getElementById('tab-sections').classList.remove('hidden');
+        event.target.classList.add('active');
+        loadSections();
       }
-    }, 1000);
-  }
-
-  function switchTab(tabName) {
-    document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-
-    document.getElementById('view-' + tabName).classList.add('active');
-    if (document.getElementById('btn-' + tabName)) {
-      document.getElementById('btn-' + tabName).classList.add('active');
     }
-  }
 
-  function openSubjectDetail(subjectId) {
-    if(subjectId === 'company-law') {
-      document.getElementById('subject-list-container').style.display = 'none';
-      document.getElementById('company-law-detail').style.display = 'block';
+    // Navigation Folder Handlers
+    function openSubjectFolder(id, name, pdfUrl) {
+      activePdfUrl = pdfUrl;
+      activeSubjectName = name;
+
+      document.getElementById('view-subjects').classList.add('hidden');
+      document.getElementById('view-folder').classList.remove('hidden');
+      document.getElementById('view-pdf-reader').classList.add('hidden');
+
+      document.getElementById('breadcrumb').innerHTML = `
+        <span onclick="showSubjects()">Subjects</span> &gt; <span>${name}</span>
+      `;
     }
-  }
 
-  function closeSubjectDetail() {
-    document.getElementById('subject-list-container').style.display = 'block';
-    document.getElementById('company-law-detail').style.display = 'none';
-  }
+    function showSubjects() {
+      document.getElementById('view-subjects').classList.remove('hidden');
+      document.getElementById('view-folder').classList.add('hidden');
+      document.getElementById('view-pdf-reader').classList.add('hidden');
+      document.getElementById('breadcrumb').innerHTML = `<span>Subjects</span>`;
+    }
 
-  function toggleSec(headerEl) {
-    const content = headerEl.nextElementSibling;
-    const isVisible = content.style.display === 'block';
-    content.style.display = isVisible ? 'none' : 'block';
-    headerEl.querySelector('span:last-child').innerText = isVisible ? '+' : '−';
-  }
-</script>
+    function openStudyMaterial() {
+      document.getElementById('view-folder').classList.add('hidden');
+      document.getElementById('view-pdf-reader').classList.remove('hidden');
+      document.getElementById('pdf-title').innerText = `${activeSubjectName} - Official ICSI Study Material`;
+      document.getElementById('pdf-frame').src = activePdfUrl;
+
+      document.getElementById('breadcrumb').innerHTML = `
+        <span onclick="showSubjects()">Subjects</span> &gt; 
+        <span onclick="openSubjectFolder('', '${activeSubjectName}', '${activePdfUrl}')">${activeSubjectName}</span> &gt; 
+        <span>Study Material</span>
+      `;
+    }
+
+    function openExternalPdf() {
+      if (activePdfUrl) window.open(activePdfUrl, '_blank');
+    }
+
+    // Load dynamic Sections
+    async function loadSections() {
+      const container = document.getElementById('sections-list');
+      try {
+        const res = await fetch('sections.json');
+        const data = await res.json();
+        container.innerHTML = data.map(s => `
+          <div class="card">
+            <h4 style="margin:0; color:var(--accent)">Section ${s.id}: ${s.title}</h4>
+            <small style="color:var(--subtext)">${s.chapter}</small>
+            <p style="font-size:0.9rem; margin-top:8px">${s.content}</p>
+          </div>
+        `).join('');
+      } catch(e) {
+        container.innerHTML = '<p>Could not load sections.json</p>';
+      }
+    }
+  </script>
 </body>
 </html>
