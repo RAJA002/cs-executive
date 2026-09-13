@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Study Companion & Tracker</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            color: var(--primary);
+        }
+
+        /* Checklist Styles */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .checklist-item input {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+        .completed {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Timer Styles */
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        button:hover { background-color: var(--primary-hover); }
+        button.secondary {
+            background-color: #e2e8f0;
+            color: var(--text-main);
+        }
+        button.secondary:hover { background-color: #cbd5e1; }
+
+        /* Notes Area */
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            resize: vertical;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 CS Executive & Professional Study Hub</h1>
+        <p>Built with love to help you crush your exams. You've got this! ✨</p>
+    </header>
+
+    <div class="grid">
+        <!-- Syllabus Checklist -->
+        <div class="card">
+            <h2>🎯 Syllabus Tracker</h2>
+            <div id="checklist-container">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </div>
+
+        <!-- Pomodoro Focus Timer -->
+        <div class="card">
+            <h2>⏱️ Study Focus Timer</h2>
+            <div class="timer-display" id="timer">25:00</div>
+            <div class="timer-controls">
+                <button onclick="startTimer()">Start</button>
+                <button class="secondary" onclick="pauseTimer()">Pause</button>
+                <button class="secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Notes / Sections Card -->
+    <div class="card">
+        <h2>📝 Quick Case Laws / Sections Vault</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Jot down sections or case names you need to memorize quickly. Auto-saves as you type!</p>
+        <textarea id="quickNotes" placeholder="e.g., Section 149 - Company to have Board of Directors..." oninput="saveNotes()"></textarea>
+    </div>
+</div>
+
+<script>
+    // --- Checklist Logic ---
+    const subjects = [
+        "Company Law - Part 1",
+        "Company Law - Part 2",
+        "Securities Laws & Capital Markets",
+        "Economic, Business and Commercial Laws",
+        "Corporate Accounting & Financial Management",
+        "Tax Laws (Direct & Indirect)"
+    ];
+
+    const container = document.getElementById("checklist-container");
+    
+    // Load saved states from localStorage
+    const savedProgress = JSON.parse(localStorage.getItem("cs_progress")) || {};
+
+    subjects.forEach((sub, index) => {
+        const isChecked = savedProgress[index] ? "checked" : "";
+        const strikeClass = isChecked ? "completed" : "";
+        
+        const div = document.createElement("div");
+        div.className = "checklist-item";
+        div.innerHTML = `
+            <input type="checkbox" id="sub-${index}" ${isChecked} onclick="toggleCheck(${index})">
+            <label for="sub-${index}" id="label-${index}" class="${strikeClass}">${sub}</label>
+        `;
+        container.appendChild(div);
+    });
+
+    function toggleCheck(index) {
+        const checkbox = document.getElementById(`sub-${index}`);
+        const label = document.getElementById(`label-${index}`);
+        
+        savedProgress[index] = checkbox.checked;
+        localStorage.setItem("cs_progress", JSON.stringify(savedProgress));
+
+        if (checkbox.checked) {
+            label.classList.add("completed");
+        } else {
+            label.classList.remove("completed");
+        }
+    }
+
+    // --- Timer Logic ---
+    let timeLeft = 25 * 60;
+    let timerId = null;
+    const timerDisplay = document.getElementById("timer");
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+        if (timerId !== null) return;
+        timerId = setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateTimerDisplay();
+            } else {
+                clearInterval(timerId);
+                timerId = null;
+                alert("Pomodoro session complete! Take a short break.");
+            }
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(timerId);
+        timerId = null;
+    }
+
+    function resetTimer() {
+        clearInterval(timerId);
+        timerId = null;
+        timeLeft = 25 * 60;
+        updateTimerDisplay();
+    }
+
+    // --- Quick Notes Logic ---
+    const notesArea = document.getElementById("quickNotes");
+    notesArea.value = localStorage.getItem("cs_notes") || "";
+
+    function saveNotes() {
+        localStorage.setItem("cs_notes", notesArea.value);
+    }
+</script>
+
+</body>
+</html>
