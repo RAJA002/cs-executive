@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS Executive Group 2 Study Hub</title>
+    <title>CS Executive Group 2 Study Hub (2022 Syllabus)</title>
     <style>
         :root {
             --primary: #4f46e5;
@@ -174,7 +174,7 @@
 <div class="container">
     <header>
         <h1>📚 CS Executive - Group 2 Study Hub</h1>
-        <p>Built with love to help you clear Group 2 like a pro. You've got this! ✨</p>
+        <p>2022 Syllabus Edition • Built with love to help you crush your exams! ✨</p>
     </header>
 
     <!-- Exam Countdown Timer -->
@@ -189,7 +189,7 @@
     </div>
 
     <div class="grid">
-        <!-- Group 2 Syllabus Checklist -->
+        <!-- Group 2 Official 2022 Syllabus Checklist -->
         <div class="card">
             <h2>🎯 Group 2 Syllabus Tracker</h2>
             <div id="checklist-container">
@@ -213,7 +213,7 @@
     <div class="card">
         <h2>📝 Quick Case Laws & Sections Vault</h2>
         <p style="font-size: 0.85rem; color: var(--text-muted);">Jot down sections or case names you need to memorize quickly. Auto-saves as you type!</p>
-        <textarea id="quickNotes" placeholder="e.g., Capital Market regulations, FEMA guidelines, corporate restructuring notes..." oninput="saveNotes()"></textarea>
+        <textarea id="quickNotes" placeholder="e.g., SEBI guidelines, FEMA provisions, Direct/Indirect Tax sections..." oninput="saveNotes()"></textarea>
     </div>
 </div>
 
@@ -249,15 +249,15 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- Group 2 Syllabus Checklist Logic ---
+    // --- Group 2 Official 2022 Syllabus Checklist Logic ---
     const group2Subjects = [
-        "Capital Markets and Securities Services (CMSS)",
-        "Strategic Management and Corporate Finance (SMCF)",
-        "Economic, Business and Commercial Laws (EBCL) - Part 2 / Relevant modules"
+        "Paper 5: Capital Market & Securities Laws",
+        "Paper 6: Economic, Commercial and Intellectual Property Laws",
+        "Paper 7: Tax Laws & Practice"
     ];
 
     const container = document.getElementById("checklist-container");
-    const savedProgress = JSON.parse(localStorage.getItem("cs_group2_progress")) || {};
+    const savedProgress = JSON.parse(localStorage.getItem("cs_group2_2022_progress")) || {};
 
     group2Subjects.forEach((sub, index) => {
         const isChecked = savedProgress[index] ? "checked" : "";
@@ -277,7 +277,7 @@
         const label = document.getElementById(`label-${index}`);
         
         savedProgress[index] = checkbox.checked;
-        localStorage.setItem("cs_group2_progress", JSON.stringify(savedProgress));
+        localStorage.setItem("cs_group2_2022_progress", JSON.stringify(savedProgress));
 
         if (checkbox.checked) {
             label.classList.add("completed");
@@ -325,10 +325,10 @@
 
     // --- Quick Notes Logic ---
     const notesArea = document.getElementById("quickNotes");
-    notesArea.value = localStorage.getItem("cs_group2_notes") || "";
+    notesArea.value = localStorage.getItem("cs_group2_2022_notes") || "";
 
     function saveNotes() {
-        localStorage.setItem("cs_group2_notes", notesArea.value);
+        localStorage.setItem("cs_group2_2022_notes", notesArea.value);
     }
 </script>
 
