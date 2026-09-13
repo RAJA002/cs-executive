@@ -26,9 +26,9 @@
             justify-content: center;
         }
 
-        .container {
+        .app-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1050px;
         }
 
         header {
@@ -43,6 +43,73 @@
 
         header h1 { margin: 0 0 8px 0; font-size: 1.8rem; }
         header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+
+        /* Main Dashboard Layout with Left Sidebar */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Sidebar Tabs */
+        .sidebar {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            height: fit-content;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+            margin-bottom: 5px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-panel {
+            display: none;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
 
         /* Countdown Banner */
         .countdown-card {
@@ -80,16 +147,6 @@
             opacity: 0.8;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-        }
-
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -107,8 +164,8 @@
             color: var(--primary);
         }
 
-        /* Subject List Styles */
-        .subject-btn {
+        /* Subject Links / Buttons style */
+        .subject-link-btn {
             display: block;
             width: 100%;
             text-align: left;
@@ -116,28 +173,20 @@
             border: 1px solid var(--border);
             padding: 12px 15px;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--text-main);
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.2s;
+            box-sizing: border-box;
         }
-        .subject-btn:hover {
+        .subject-link-btn:hover {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
-
-        /* Details View & Utilities */
-        .hidden { display: none; }
-        .back-btn {
-            background-color: #64748b;
-            margin-bottom: 15px;
-            padding: 6px 12px;
-            font-size: 0.85rem;
-        }
-        .back-btn:hover { background-color: #475569; }
 
         /* Pomodoro Styles */
         .pomodoro-display {
@@ -172,13 +221,13 @@
 </head>
 <body>
 
-<div class="container">
+<div class="app-container">
     <header>
         <h1>📚 CS Executive - Group 2 Study Hub</h1>
         <p>2022 Syllabus Edition • Built with love to help you crush your exams! ✨</p>
     </header>
 
-    <!-- Exam Countdown Timer -->
+    <!-- Exam Countdown Timer (Visible across tabs) -->
     <div class="countdown-card">
         <h3>⏳ Countdown to CS Executive Exam</h3>
         <div class="timer-grid">
@@ -189,36 +238,43 @@
         </div>
     </div>
 
-    <div class="grid">
-        <!-- Group 2 Interactive Syllabus View -->
-        <div class="card">
-            <div id="listView">
-                <h2>🎯 Group 2 Syllabus</h2>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Click a subject to view its details:</p>
-                <button class="subject-btn" onclick="showSubject('paper5')">Paper 5: Capital Market & Securities Laws</button>
-                <button class="subject-btn" onclick="showSubject('paper6')">Paper 6: Economic, Commercial and IP Laws</button>
-                <button class="subject-btn" onclick="showSubject('paper7')">Paper 7: Tax Laws & Practice</button>
-            </div>
-
-            <!-- Subject Details Sub-View (Hidden by default) -->
-            <div id="detailsView" class="hidden">
-                <button class="back-btn" onclick="showList()">← Back to Subjects</button>
-                <h2 id="detailTitle">Subject Title</h2>
-                <div id="detailContent" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main);">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
+    <!-- Layout with Sidebar Tabs on the Left -->
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <button class="tab-btn active" onclick="switchTab('subjects', this)">📚 Subjects</button>
+            <button class="tab-btn" onclick="switchTab('pomodoro', this)">⏱️ Focus Timer</button>
         </div>
 
-        <!-- Pomodoro Focus Timer -->
-        <div class="card">
-            <h2>⏱️ Study Focus Timer</h2>
-            <div class="pomodoro-display" id="timer">25:00</div>
-            <div class="controls">
-                <button onclick="startTimer()">Start</button>
-                <button class="secondary" onclick="pauseTimer()">Pause</button>
-                <button class="secondary" onclick="resetTimer()">Reset</button>
+        <!-- Right Content Area -->
+        <div class="main-content">
+            
+            <!-- Tab 1: Subjects List -->
+            <div id="subjects-panel" class="content-panel active">
+                <div class="card">
+                    <h2>🎯 Group 2 Syllabus Tracker</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Select a subject to open its dedicated page:</p>
+                    
+                    <a href="paper5.html" class="subject-link-btn">Paper 5: Capital Market & Securities Laws ➔</a>
+                    <a href="paper6.html" class="subject-link-btn">Paper 6: Economic, Commercial and IP Laws ➔</a>
+                    <a href="paper7.html" class="subject-link-btn">Paper 7: Tax Laws & Practice ➔</a>
+                </div>
             </div>
+
+            <!-- Tab 2: Pomodoro Timer -->
+            <div id="pomodoro-panel" class="content-panel">
+                <div class="card">
+                    <h2>⏱️ Study Focus Timer</h2>
+                    <div class="pomodoro-display" id="timer">25:00</div>
+                    <div class="controls">
+                        <button onclick="startTimer()">Start</button>
+                        <button class="secondary" onclick="pauseTimer()">Pause</button>
+                        <button class="secondary" onclick="resetTimer()">Reset</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -254,55 +310,21 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- Subject Details & Navigation Logic ---
-    const subjectData = {
-        paper5: {
-            title: "Paper 5: Capital Market & Securities Laws",
-            content: `
-                <p><strong>Structure:</strong></p>
-                <ul>
-                    <li><strong>Part I:</strong> Capital Market (40 Marks)</li>
-                    <li><strong>Part II:</strong> Securities Laws (60 Marks)</li>
-                </ul>
-                <p><em>Key Focus:</em> SEBI Regulations, ICDR, LODR, and threshold limits.</p>
-            `
-        },
-        paper6: {
-            title: "Paper 6: Economic, Commercial and IP Laws",
-            content: `
-                <p><strong>Structure:</strong></p>
-                <ul>
-                    <li><strong>Part I:</strong> Economic & Commercial Laws (60 Marks)</li>
-                    <li><strong>Part II:</strong> Intellectual Property Laws (40 Marks)</li>
-                </ul>
-                <p><em>Key Focus:</em> FEMA, IBC, PMLA, and Trademarks/Patents.</p>
-            `
-        },
-        paper7: {
-            title: "Paper 7: Tax Laws & Practice",
-            content: `
-                <p><strong>Structure:</strong></p>
-                <ul>
-                    <li><strong>Part I:</strong> Direct Tax (60 Marks)</li>
-                    <li><strong>Part II:</strong> Indirect Tax - GST & Customs (40 Marks)</li>
-                </ul>
-                <p><em>Key Focus:</em> Income tax computations and GST ITC mechanisms.</p>
-            `
-        }
-    };
+    // --- Sidebar Tab Switching Logic ---
+    function switchTab(tabId, btnElement) {
+        // Hide all content panels
+        document.querySelectorAll('.content-panel').forEach(panel => {
+            panel.classList.remove('active');
+        });
 
-    function showSubject(paperKey) {
-        const data = subjectData[paperKey];
-        document.getElementById("detailTitle").textContent = data.title;
-        document.getElementById("detailContent").innerHTML = data.content;
+        // Remove active state from all sidebar buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
 
-        document.getElementById("listView").classList.add("hidden");
-        document.getElementById("detailsView").classList.remove("hidden");
-    }
-
-    function showList() {
-        document.getElementById("detailsView").classList.add("hidden");
-        document.getElementById("listView").classList.remove("hidden");
+        // Show selected panel & activate button
+        document.getElementById(tabId + '-panel').classList.add('active');
+        btnElement.classList.add('active');
     }
 
     // --- Pomodoro Timer Logic ---
