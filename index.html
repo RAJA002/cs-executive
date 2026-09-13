@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS Study Companion & Tracker</title>
+    <title>CS Executive Group 2 Study Hub</title>
     <style>
         :root {
             --primary: #4f46e5;
@@ -13,6 +13,7 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --border: #e2e8f0;
+            --accent: #0ea5e9;
         }
 
         body {
@@ -32,16 +33,52 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
             color: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        header h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        header h1 { margin: 0 0 8px 0; font-size: 1.8rem; }
         header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+
+        /* Countdown Banner */
+        .countdown-card {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-card h3 { margin: 0 0 10px 0; font-size: 1.1rem; font-weight: 500;}
+        
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 12px;
+            border-radius: 6px;
+            min-width: 50px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: normal;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
 
         .grid {
             display: grid;
@@ -74,7 +111,7 @@
         .checklist-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
             cursor: pointer;
         }
@@ -89,15 +126,15 @@
             color: var(--text-muted);
         }
 
-        /* Timer Styles */
-        .timer-display {
+        /* Pomodoro Styles */
+        .pomodoro-display {
             font-size: 2.5rem;
             font-weight: bold;
             text-align: center;
             margin: 15px 0;
             color: var(--primary);
         }
-        .timer-controls {
+        .controls {
             display: flex;
             gap: 10px;
             justify-content: center;
@@ -136,14 +173,25 @@
 
 <div class="container">
     <header>
-        <h1>📚 CS Executive & Professional Study Hub</h1>
-        <p>Built with love to help you crush your exams. You've got this! ✨</p>
+        <h1>📚 CS Executive - Group 2 Study Hub</h1>
+        <p>Built with love to help you clear Group 2 like a pro. You've got this! ✨</p>
     </header>
 
+    <!-- Exam Countdown Timer -->
+    <div class="countdown-card">
+        <h3>⏳ Countdown to CS Executive Exam</h3>
+        <div class="timer-grid">
+            <div class="time-box"><span id="days">00</span><span>Days</span></div>
+            <div class="time-box"><span id="hours">00</span><span>Hours</span></div>
+            <div class="time-box"><span id="mins">00</span><span>Mins</span></div>
+            <div class="time-box"><span id="secs">00</span><span>Secs</span></div>
+        </div>
+    </div>
+
     <div class="grid">
-        <!-- Syllabus Checklist -->
+        <!-- Group 2 Syllabus Checklist -->
         <div class="card">
-            <h2>🎯 Syllabus Tracker</h2>
+            <h2>🎯 Group 2 Syllabus Tracker</h2>
             <div id="checklist-container">
                 <!-- Dynamically populated via JS -->
             </div>
@@ -152,8 +200,8 @@
         <!-- Pomodoro Focus Timer -->
         <div class="card">
             <h2>⏱️ Study Focus Timer</h2>
-            <div class="timer-display" id="timer">25:00</div>
-            <div class="timer-controls">
+            <div class="pomodoro-display" id="timer">25:00</div>
+            <div class="controls">
                 <button onclick="startTimer()">Start</button>
                 <button class="secondary" onclick="pauseTimer()">Pause</button>
                 <button class="secondary" onclick="resetTimer()">Reset</button>
@@ -163,29 +211,55 @@
 
     <!-- Quick Notes / Sections Card -->
     <div class="card">
-        <h2>📝 Quick Case Laws / Sections Vault</h2>
+        <h2>📝 Quick Case Laws & Sections Vault</h2>
         <p style="font-size: 0.85rem; color: var(--text-muted);">Jot down sections or case names you need to memorize quickly. Auto-saves as you type!</p>
-        <textarea id="quickNotes" placeholder="e.g., Section 149 - Company to have Board of Directors..." oninput="saveNotes()"></textarea>
+        <textarea id="quickNotes" placeholder="e.g., Capital Market regulations, FEMA guidelines, corporate restructuring notes..." oninput="saveNotes()"></textarea>
     </div>
 </div>
 
 <script>
-    // --- Checklist Logic ---
-    const subjects = [
-        "Company Law - Part 1",
-        "Company Law - Part 2",
-        "Securities Laws & Capital Markets",
-        "Economic, Business and Commercial Laws",
-        "Corporate Accounting & Financial Management",
-        "Tax Laws (Direct & Indirect)"
+    // --- Exam Countdown Logic ---
+    // Change this date to her exact exam start date (YYYY-MM-DD)
+    const examDate = new Date("2026-12-21T09:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = examDate - now;
+
+        if (distance < 0) {
+            document.querySelector(".countdown-card h3").textContent = "🚀 Exam Day is Here! Crush It!";
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("mins").textContent = "00";
+            document.getElementById("secs").textContent = "00";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = String(days).padStart(2, '0');
+        document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+        document.getElementById("mins").textContent = String(minutes).padStart(2, '0');
+        document.getElementById("secs").textContent = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- Group 2 Syllabus Checklist Logic ---
+    const group2Subjects = [
+        "Capital Markets and Securities Services (CMSS)",
+        "Strategic Management and Corporate Finance (SMCF)",
+        "Economic, Business and Commercial Laws (EBCL) - Part 2 / Relevant modules"
     ];
 
     const container = document.getElementById("checklist-container");
-    
-    // Load saved states from localStorage
-    const savedProgress = JSON.parse(localStorage.getItem("cs_progress")) || {};
+    const savedProgress = JSON.parse(localStorage.getItem("cs_group2_progress")) || {};
 
-    subjects.forEach((sub, index) => {
+    group2Subjects.forEach((sub, index) => {
         const isChecked = savedProgress[index] ? "checked" : "";
         const strikeClass = isChecked ? "completed" : "";
         
@@ -203,7 +277,7 @@
         const label = document.getElementById(`label-${index}`);
         
         savedProgress[index] = checkbox.checked;
-        localStorage.setItem("cs_progress", JSON.stringify(savedProgress));
+        localStorage.setItem("cs_group2_progress", JSON.stringify(savedProgress));
 
         if (checkbox.checked) {
             label.classList.add("completed");
@@ -212,7 +286,7 @@
         }
     }
 
-    // --- Timer Logic ---
+    // --- Pomodoro Timer Logic ---
     let timeLeft = 25 * 60;
     let timerId = null;
     const timerDisplay = document.getElementById("timer");
@@ -232,7 +306,7 @@
             } else {
                 clearInterval(timerId);
                 timerId = null;
-                alert("Pomodoro session complete! Take a short break.");
+                alert("Pomodoro session complete! Time for a short break.");
             }
         }, 1000);
     }
@@ -251,10 +325,10 @@
 
     // --- Quick Notes Logic ---
     const notesArea = document.getElementById("quickNotes");
-    notesArea.value = localStorage.getItem("cs_notes") || "";
+    notesArea.value = localStorage.getItem("cs_group2_notes") || "";
 
     function saveNotes() {
-        localStorage.setItem("cs_notes", notesArea.value);
+        localStorage.setItem("cs_group2_notes", notesArea.value);
     }
 </script>
 
