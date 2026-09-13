@@ -208,13 +208,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Quick Notes / Sections Card -->
-    <div class="card">
-        <h2>📝 Quick Case Laws & Sections Vault</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Jot down sections or case names you need to memorize quickly. Auto-saves as you type!</p>
-        <textarea id="quickNotes" placeholder="e.g., SEBI guidelines, FEMA provisions, Direct/Indirect Tax sections..." oninput="saveNotes()"></textarea>
-    </div>
 </div>
 
 <script>
@@ -323,13 +316,7 @@
         updateTimerDisplay();
     }
 
-    // --- Quick Notes Logic ---
-    const notesArea = document.getElementById("quickNotes");
-    notesArea.value = localStorage.getItem("cs_group2_2022_notes") || "";
 
-    function saveNotes() {
-        localStorage.setItem("cs_group2_2022_notes", notesArea.value);
-    }
 </script>
 
 </body>
